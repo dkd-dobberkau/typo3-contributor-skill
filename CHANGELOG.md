@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- `scripts/quickstart-check.sh`: read-only check of the Contribution Guide Quickstart steps 1-5 (prerequisites, Gerrit SSH plus a manual account checklist, Git via `check-setup.sh`, DDEV config/PHP/running, TYPO3 installed with EXT:styleguide and EXT:indexed_search, backend reachable with `--online`).
+
 ## [0.2.0] - 2026-10-01
 
 ### Added

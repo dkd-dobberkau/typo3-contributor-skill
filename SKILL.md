@@ -63,6 +63,7 @@ all comments and votes and creates Forge tickets; you draft them.
 
 | Script | Purpose |
 |---|---|
+| `bash scripts/quickstart-check.sh [--online]` | whole guide Quickstart (steps 1-5): tools, accounts, Git, DDEV, TYPO3 instance |
 | `bash scripts/check-setup.sh [--fix] [--online]` | verify/complete clone, pushurl, hooks, template |
 | `bash scripts/qa.sh [--dry-run] [--fix]` | runTests suites matching the HEAD commit's files |
 | `bash scripts/check-commit-msg.sh [file]` | lint a commit message (default HEAD) |

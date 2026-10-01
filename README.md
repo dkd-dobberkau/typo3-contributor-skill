@@ -22,6 +22,7 @@ The human reviews every diff, decides every push, and posts all comments, votes 
 
 | Script | Purpose |
 |---|---|
+| `scripts/quickstart-check.sh [--online]` | check the guide's Quickstart steps 1-5 (tools, accounts, Git, DDEV, TYPO3) |
 | `scripts/check-setup.sh [--fix] [--online]` | verify/complete the contribution checkout |
 | `scripts/qa.sh [--dry-run] [--fix]` | run the `runTests.sh` suites matching the HEAD commit |
 | `scripts/check-commit-msg.sh [file]` | lint a commit message (stricter than the Core hook, which does not block) |

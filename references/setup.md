@@ -1,6 +1,6 @@
 # Setup
 
-Run `bash scripts/check-setup.sh` first. It reports every gap. `--fix` sets missing repo-local config and copies the hooks. It never overwrites a differing value. `--online` also tests SSH and Docker.
+Run `bash scripts/quickstart-check.sh --online` for the whole Quickstart (tools, accounts, Git, DDEV, TYPO3 instance). Run `bash scripts/check-setup.sh` for the Git part only. It reports every gap. `--fix` sets missing repo-local config and copies the hooks. It never overwrites a differing value. `--online` also tests SSH and Docker.
 
 ## From scratch (guide Quickstart)
 
