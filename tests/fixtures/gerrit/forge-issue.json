@@ -1,0 +1,23 @@
+{
+ "issue": {
+  "id": 110864,
+  "tracker": {
+   "id": 1,
+   "name": "Bug"
+  },
+  "status": {
+   "id": 3,
+   "name": "Resolved",
+   "is_closed": true
+  },
+  "subject": "Copied content elements take their language from the preceding record",
+  "project": {
+   "id": 27,
+   "name": "TYPO3 Core"
+  },
+  "category": {
+   "id": 1094,
+   "name": "DataHandler aka TCEmain"
+  }
+ }
+}

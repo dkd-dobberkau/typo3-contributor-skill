@@ -1,0 +1,6 @@
+[DOCS] Add example for RedirectLoginHandler
+
+Resolves: #12345
+Releases: main
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit. This line is long on purpose to exceed 72

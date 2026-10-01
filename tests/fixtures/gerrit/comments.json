@@ -1,0 +1,299 @@
+)]}'
+{
+ "/PATCHSET_LEVEL": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "2e3d4b30_0752893e",
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 1",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1005,
+    "name": "Reviewer 6",
+    "username": "reviewer6"
+   },
+   "patch_set": 3,
+   "id": "4fe72904_0fcecaa6",
+   "updated": "2026-10-01 12:25:33.000000000",
+   "message": "Synthetic comment 2",
+   "unresolved": false
+  }
+ ],
+ "typo3/sysext/core/Classes/DependencyInjection/LogWriterPass.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "2ec679af_2c0c0f1d",
+   "line": 50,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 3",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "340a6e95_fc09f4b8",
+   "line": 50,
+   "in_reply_to": "2ec679af_2c0c0f1d",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 4",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "d7b1c48a_adb2c58b",
+   "line": 53,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 5",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "55ad0959_7ee874c4",
+   "line": 53,
+   "in_reply_to": "d7b1c48a_adb2c58b",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 6",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Classes/Log/LogManager.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "8d45af60_d5b85b3f",
+   "line": 175,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 7",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "23cc5cea_3b3da9ab",
+   "line": 175,
+   "in_reply_to": "8d45af60_d5b85b3f",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 8",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "25bcf882_07abf60c",
+   "line": 211,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 9",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "a5e948f0_66051179",
+   "line": 211,
+   "in_reply_to": "25bcf882_07abf60c",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 10",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Classes/Log/Writer/AbstractWriter.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "7dc7c692_5de9f89c",
+   "line": 33,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 11",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "7df7b0b2_88d48a06",
+   "line": 33,
+   "in_reply_to": "7dc7c692_5de9f89c",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 12",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "90968ee8_2b88ba5d",
+   "line": 62,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 13",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "8d1d8066_77eddafe",
+   "line": 62,
+   "in_reply_to": "90968ee8_2b88ba5d",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 14",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Classes/Log/Writer/ConfigurableWriterInterface.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "78dfdf4a_6bb02ec2",
+   "line": 34,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 15",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "6b79c52a_20a823af",
+   "line": 34,
+   "in_reply_to": "78dfdf4a_6bb02ec2",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 16",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Classes/Log/Writer/DatabaseWriter.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "b59406d5_543ed183",
+   "line": 28,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 17",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "6a0e67f8_f62b8d89",
+   "line": 28,
+   "in_reply_to": "b59406d5_543ed183",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 18",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Classes/Log/Writer/FileWriter.php": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "b8410b7f_8a1b734f",
+   "line": 67,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 19",
+   "unresolved": true
+  },
+  {
+   "author": {
+    "_account_id": 1002,
+    "name": "Reviewer 3",
+    "username": "reviewer3"
+   },
+   "patch_set": 2,
+   "id": "c21b4578_8866b623",
+   "line": 67,
+   "in_reply_to": "b8410b7f_8a1b734f",
+   "updated": "2026-07-21 13:40:27.000000000",
+   "message": "Synthetic comment 20",
+   "unresolved": true
+  }
+ ],
+ "typo3/sysext/core/Documentation/Changelog/15.0/Breaking-110222-LogWritersInstantiatedViaDependencyInjection.rst": [
+  {
+   "author": {
+    "_account_id": 1004,
+    "name": "Reviewer 5",
+    "username": "reviewer5"
+   },
+   "patch_set": 2,
+   "id": "9223d153_00d305b3",
+   "line": 43,
+   "updated": "2026-07-17 22:54:46.000000000",
+   "message": "Synthetic comment 21",
+   "unresolved": true
+  }
+ ]
+}

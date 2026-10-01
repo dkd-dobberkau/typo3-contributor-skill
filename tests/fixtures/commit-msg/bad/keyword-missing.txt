@@ -1,0 +1,4 @@
+Fix placeholder escaping
+
+Resolves: #1
+Releases: main

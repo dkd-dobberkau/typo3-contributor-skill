@@ -1,0 +1,5 @@
+[BUGFIX] Escape placeholder
+
+Resolves: #1
+Releases: main
+Co-Authored-By: Claude <noreply@anthropic.com>

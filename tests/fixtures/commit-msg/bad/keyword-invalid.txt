@@ -1,0 +1,4 @@
+[FIX] Escape placeholder
+
+Resolves: #1
+Releases: main

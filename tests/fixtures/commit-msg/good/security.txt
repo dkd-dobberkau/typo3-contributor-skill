@@ -1,0 +1,4 @@
+[SECURITY] Escape record title in RecordsOverview
+
+Resolves: #12345
+Releases: main, 13.4, 12.4

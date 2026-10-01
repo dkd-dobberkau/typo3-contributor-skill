@@ -1,0 +1,4 @@
+[FEATURE] Add option to hide search box
+
+Resolves: #1
+Releases: main, 13.4

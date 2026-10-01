@@ -1,0 +1,4 @@
+[BUGFIX] Escape placeholder
+
+Related: #1
+Releases: main

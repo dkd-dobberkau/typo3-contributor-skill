@@ -1,0 +1,9 @@
+[TASK] Link some long links
+
+In [1] it is documented that something is not wrong.
+
+[1] https://example.com/a/very/very/long-link/because/it/is/really-needed-I-mean-it-its-long-but-okay
+
+Resolves: #12345
+Resolves: #67890
+Releases: main

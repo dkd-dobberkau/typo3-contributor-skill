@@ -1,0 +1,7 @@
+[BUGFIX] Escape placeholder in JSON element
+
+The placeholder attribute of the JSON FormEngine element is now
+passed through htmlspecialchars().
+
+Resolves: #108123
+Releases: main, 13.4

@@ -1,0 +1,6 @@
+[BUGFIX] Escape placeholder
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Resolves: #1
+Releases: main

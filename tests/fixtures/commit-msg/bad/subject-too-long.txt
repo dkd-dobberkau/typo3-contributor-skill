@@ -1,0 +1,4 @@
+[BUGFIX] Escape the placeholder attribute of the JSON element in FormEngine now
+
+Resolves: #1
+Releases: main

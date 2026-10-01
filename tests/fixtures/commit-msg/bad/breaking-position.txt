@@ -1,0 +1,4 @@
+[FEATURE][!!!] Implement new login
+
+Resolves: #1
+Releases: main

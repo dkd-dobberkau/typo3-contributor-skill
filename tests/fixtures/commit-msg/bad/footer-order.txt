@@ -1,0 +1,6 @@
+[BUGFIX] Keep record language
+
+Resolves: #1
+Releases: main
+Change-Id: I1817366e77f20f6c43eef0ee209fbb419e7237e2
+Signed-off-by: Jane Doe <jane@example.com>

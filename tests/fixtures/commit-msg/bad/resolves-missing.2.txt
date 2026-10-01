@@ -1,0 +1,4 @@
+[BUGFIX] Escape placeholder
+
+Resolves: #M12345
+Releases: main

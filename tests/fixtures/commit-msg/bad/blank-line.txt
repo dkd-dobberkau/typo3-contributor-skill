@@ -1,0 +1,5 @@
+[BUGFIX] Escape placeholder
+Body directly after subject.
+
+Resolves: #1
+Releases: main

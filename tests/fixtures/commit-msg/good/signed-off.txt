@@ -1,0 +1,6 @@
+[BUGFIX] Keep record language when copying content
+
+Resolves: #12345
+Releases: main, 14.3
+Signed-off-by: Jane Doe <jane@example.com>
+Change-Id: I1817366e77f20f6c43eef0ee209fbb419e7237e2

@@ -1,0 +1,6 @@
+[BUGFIX] Escape placeholder
+
+This body line is definitely way longer than seventy-two characters and must wrap.
+
+Resolves: #1
+Releases: main

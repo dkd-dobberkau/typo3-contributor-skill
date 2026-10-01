@@ -1,0 +1,6 @@
+[TASK] Revert "[FEATURE] Transform Lead to Gold"
+
+This reverts commit 0123456789abcdef.
+
+Resolves: #12345
+Releases: main
