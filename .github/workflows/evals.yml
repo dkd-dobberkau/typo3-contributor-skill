@@ -1,0 +1,45 @@
+name: Evals
+
+# Behaviour evals cost API credits, so they only run on demand and only when
+# an ANTHROPIC_API_KEY repository secret is configured.
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: Runs per case and arm
+        default: "2"
+      max_cost_usd:
+        description: Hard cost ceiling in USD
+        default: "10"
+
+permissions:
+  contents: read
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - name: Require API key
+        if: env.ANTHROPIC_API_KEY == ''
+        run: |
+          echo "::warning::No ANTHROPIC_API_KEY secret configured; skipping evals."
+      - uses: actions/checkout@v7
+        if: env.ANTHROPIC_API_KEY != ''
+      - uses: actions/setup-node@v7
+        if: env.ANTHROPIC_API_KEY != ''
+        with:
+          node-version: 22
+      - name: Run plugin evals
+        if: env.ANTHROPIC_API_KEY != ''
+        run: |
+          npx -y @anthropic-ai/claude-code@latest plugin eval . \
+            --trust-plugin --no-publish \
+            --runs "${{ inputs.runs }}" --max-cost-usd "${{ inputs.max_cost_usd }}" \
+            --json eval-result.json
+      - uses: actions/upload-artifact@v7
+        if: always() && env.ANTHROPIC_API_KEY != ''
+        with:
+          name: eval-result
+          path: eval-result.json

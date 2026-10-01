@@ -11,6 +11,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Plugin options `container_runtime` (docker/podman) and `core_dir`, exported to the session by a `SessionStart` hook (`TYPO3_CONTRIB_RUNTIME`, `TYPO3_CORE_DIR`). All scripts honour them.
 - `PreToolUse` guard hook (`hooks/guard.py`): Gerrit pushes run `preflight.sh` and need confirmation, posting to Gerrit is denied, `Co-Authored-By` in Core commits is denied.
 
+- `evals/`: five `claude plugin eval` cases with mostly deterministic graders, and an on-demand `Evals` workflow.
+
 ### Fixed
 - Quickstart tests no longer depend on `docker`/`ssh` being installed on the test machine.
 - ShellCheck findings in `qa.sh` and `preflight.sh`.

@@ -84,6 +84,19 @@ Other repositories and commands are not affected.
 bash tests/run.sh
 ```
 
+### Behaviour evals
+
+`evals/` holds `claude plugin eval` cases built from real failures of agents without the skill
+(guessed fetch source, removed suites, pushing without review, voting via ssh, backporting a deprecation).
+Each case runs with and without the plugin and reports the difference:
+
+```bash
+claude plugin eval . --runs 2 --max-cost-usd 10
+```
+
+A full run costs about $2. In CI the `Evals` workflow runs on demand only (Actions → Evals → Run workflow)
+and needs an `ANTHROPIC_API_KEY` repository secret.
+
 `tests/baselines.md` documents agent behaviour without the skill and the guide corrections, which were verified against Core `main`.
 `tests/fixtures/gerrit/` contains anonymized real API responses.
 
