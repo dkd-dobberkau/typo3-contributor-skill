@@ -197,5 +197,25 @@ class ThreadsOutputTest(unittest.TestCase):
         self.assertEqual(buffer.getvalue().strip(), "no comment threads")
 
 
+class ChainTest(unittest.TestCase):
+    """preflight.sh accepts a relation chain only if every parent is already on Gerrit as is."""
+    CURRENT = "a" * 40
+
+    def test_current_patch_set_of_open_change_is_fine(self):
+        self.assertIsNone(gerrit.chain_problem(self.CURRENT, load("chain-query.json")))
+
+    def test_unknown_commit_is_reported(self):
+        self.assertIn("not on Gerrit", gerrit.chain_problem("b" * 40, []))
+
+    def test_outdated_patch_set_is_reported(self):
+        problem = gerrit.chain_problem("c" * 40, load("chain-query.json"))
+        self.assertIn("not the current patch set of 90001", problem)
+
+    def test_closed_change_is_reported(self):
+        changes = load("chain-query.json")
+        changes[0]["status"] = "MERGED"
+        self.assertIn("MERGED", gerrit.chain_problem(self.CURRENT, changes))
+
+
 if __name__ == "__main__":
     unittest.main()

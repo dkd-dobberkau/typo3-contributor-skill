@@ -20,8 +20,24 @@ hooks_dir=$(git rev-parse --path-format=absolute --git-path hooks 2>/dev/null ||
 ahead=$(git rev-list --count "$BASE..HEAD" 2>/dev/null || echo "?")
 if [ "$ahead" = 1 ]; then
     ok "exactly one commit ahead of $BASE"
+elif [[ "$ahead" =~ ^[0-9]+$ ]] && [ "$ahead" -gt 1 ]; then
+    # A deliberate relation chain (a change that depends on another open change) is fine
+    # if every commit below HEAD is already on Gerrit as the current patch set of an open
+    # change: then the push only uploads HEAD. Anything else is an accidental chain.
+    gerrit_py=${PREFLIGHT_GERRIT_PY:-$SCRIPT_DIR/gerrit.py}
+    parents=$(git rev-list "$BASE..HEAD^")
+    # shellcheck disable=SC2086 # one argument per parent commit
+    if chain=$(python3 "$gerrit_py" chain $parents 2>&1); then
+        ok "relation chain: HEAD sits on $((ahead - 1)) open change(s) at their current patch set"
+        # shellcheck disable=SC2001 # indent every line of the chain check
+        echo "$chain" | sed 's/^/      /'
+    else
+        error ahead-count "HEAD is $ahead commits ahead of $BASE and not every commit below HEAD is the current patch set of an open Gerrit change (accidental relation chain?):"
+        # shellcheck disable=SC2001 # indent every line of the chain check
+        echo "$chain" | sed 's/^/      /'
+    fi
 else
-    error ahead-count "HEAD is $ahead commit(s) ahead of $BASE; a Gerrit change must be exactly one commit (more = relation chain, 0 = nothing to push)."
+    error ahead-count "HEAD is $ahead commit(s) ahead of $BASE; a Gerrit change must be exactly one commit (0 = nothing to push)."
 fi
 
 # --- hooks -------------------------------------------------------------------

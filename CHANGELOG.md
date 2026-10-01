@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- Deliberate relation chains: `preflight.sh` accepts a HEAD that sits on other open changes if every commit below it is the current patch set of an open change on Gerrit (new `gerrit.py chain <sha>…`). An accidental chain still fails with `ahead-count`.
+
 ## [0.5.1] - 2026-10-01
 
 ### Fixed

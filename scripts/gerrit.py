@@ -13,6 +13,8 @@ Usage:
   gerrit.py forge <issue> [--full]   Forge issue tracker/status/subject (does the number exist and fit?)
                                      --full: also description, fields, relations and comments
   gerrit.py branches                 branches a bugfix may target (main + maintained LTS, get.typo3.org)
+  gerrit.py chain <sha>...           are these commits the current patch sets of open changes? (used by
+                                     preflight.sh for a deliberate relation chain; exit 1 if not)
 """
 import datetime
 import json
@@ -273,6 +275,36 @@ def fetch_change(change):
     return parse_gerrit_json(get(f"{GERRIT}/changes/{change}?{query}"))
 
 
+def chain_problem(sha, changes):
+    """Why commit `sha` may not sit below a pushed change, or None if it may.
+
+    `changes` is the result of the query commit:<sha>. A parent is fine only as the current
+    patch set of an open change: otherwise the push would base the child on stale or merged work.
+    """
+    if not changes:
+        return f"{sha[:11]} is not on Gerrit: push the parent change first"
+    change = changes[0]
+    if change.get("status") != "NEW":
+        return f"{sha[:11]} belongs to {change['_number']}, which is {change.get('status')}: rebase onto origin/main"
+    if change.get("current_revision") != sha:
+        return (f"{sha[:11]} is not the current patch set of {change['_number']}: "
+                f"rebase onto its latest patch set (gerrit.py fetch {change['_number']})")
+    return None
+
+
+def command_chain(shas):
+    problems = 0
+    for sha in shas:
+        changes = parse_gerrit_json(get(f"{GERRIT}/changes/?q=commit:{sha}&o=CURRENT_REVISION"))
+        problem = chain_problem(sha, changes)
+        if problem:
+            problems += 1
+            print(problem)
+        else:
+            print(f"{sha[:11]} is the current patch set of {changes[0]['_number']}")
+    return 1 if problems else 0
+
+
 def fetch_comments(change):
     return parse_gerrit_json(get(f"{GERRIT}/changes/{change}/comments"))
 
@@ -361,6 +393,8 @@ def main(argv):
         print(", ".join(supported_branches(majors, datetime.date.today().isoformat())))
         print("Bugfixes land on main first; which LTS branches get a backport is the mergers' and the human's call.")
         return 0
+    if len(argv) >= 3 and argv[1] == "chain" and all(re.fullmatch(r"[0-9a-f]{40}", sha) for sha in argv[2:]):
+        return command_chain(argv[2:])
     if len(argv) not in (3, 4) or argv[1] not in ("status", "comments", "ci", "fetch", "files", "diff", "forge") or not argv[2].isdigit():
         print(__doc__)
         return 2

@@ -45,3 +45,7 @@ namespace TYPO3\CMS\Backend;
 
 final class Foo {}'
 
+
+# Stand-ins for `gerrit.py chain`, so preflight tests never reach review.typo3.org.
+CHAIN_STUB_OK=$(mktemp); printf '%s\n' 'print("parent is the current patch set of 90001")' > "$CHAIN_STUB_OK"
+CHAIN_STUB_FAIL=$(mktemp); printf '%s\n' 'import sys' 'print("parent is not on Gerrit")' 'sys.exit(1)' > "$CHAIN_STUB_FAIL"

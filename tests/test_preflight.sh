@@ -28,9 +28,12 @@ printf '%s\n' "$php_file_ok" > "$d/typo3/sysext/backend/Classes/Foo.php"
 commit_in "$d" "[BUGFIX] Add foo"
 expect_preflight clean-commit ok "$d"
 
-# 2. two commits ahead -> relation chain
+# 2. two commits ahead, parent not on Gerrit -> accidental relation chain
 echo x >> "$d/README.md"; commit_in "$d" "[TASK] Second change"
-expect_preflight relation-chain ahead-count "$d"
+PREFLIGHT_GERRIT_PY="$CHAIN_STUB_FAIL" expect_preflight relation-chain ahead-count "$d"
+
+# 2a. parent is the current patch set of an open change -> deliberate chain passes
+PREFLIGHT_GERRIT_PY="$CHAIN_STUB_OK" expect_preflight deliberate-chain ok "$d"
 
 # 3. nothing to push
 d=$(make_checkout)

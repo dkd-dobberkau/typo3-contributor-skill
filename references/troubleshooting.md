@@ -6,7 +6,7 @@
 | `remote rejected … (invalid committer)` / "You are not a committer" | Commit email is not a registered Gerrit identity. The human registers it at https://review.typo3.org/settings/#EmailAddresses and confirms the mail. Then check `git config user.email` and run `git commit --amend --reset-author --no-edit`. |
 | `missing Change-Id in commit message` | Hook was missing when committing. Install it (`check-setup.sh --fix`), then `git commit --amend --no-edit`. |
 | A second change was created instead of a patch set | The Change-Id was changed or removed. Abandon the duplicate in Gerrit (the human does it). Amend with the original Change-Id. |
-| Change shows a relation chain | More than one commit ahead of `origin/main`. Squash or reset so that exactly one commit remains (`preflight.sh` checks this). |
+| Change shows a relation chain | More than one commit ahead of `origin/main`. Accidental: squash or reset so that exactly one commit remains. Deliberate (the change needs another open change): push the parent first, then rebase the child onto the parent's latest patch set; `preflight.sh` checks both. |
 | `no new changes` on push | Nothing changed since the last patch set. Check `git show HEAD`. |
 | Merge conflict when rebasing | `git status`, resolve the files, `git add`, `git rebase --continue`, then re-run `qa.sh`. |
 | `runTests.sh` very slow on macOS | Container filesystem overhead. Exclude `typo3temp/` and `.cache` from IDE indexing and from DDEV mutagen sync. |

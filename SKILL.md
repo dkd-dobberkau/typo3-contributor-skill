@@ -36,7 +36,7 @@ all comments and votes and creates Forge tickets; you draft them.
 
 - **Check the premise first.** Verify the reported bug, feedback or change number against the code and against `gerrit.py status`. Report any discrepancy before you act, e.g. "already escaped", "no such comment", "someone else uploaded the latest patch set".
 - Commit only when the human asked for it (AGENTS.md). Work on a topic branch (`change-<topic>`), never on local `main`, so a later reset cannot destroy your work.
-- One change = exactly one commit on top of `origin/main`, with its own Forge issue. Update it with `git commit --amend`; keep the `Change-Id`.
+- One change = exactly one commit on top of `origin/main`, with its own Forge issue. Update it with `git commit --amend`; keep the `Change-Id`. Exception: a change that deliberately depends on another open change (relation chain). Push the parent first; `preflight.sh` then accepts the chain only if every commit below HEAD is the current patch set of an open change.
 - Commit with `git commit -s`. The `Signed-off-by` certifies the Developer Certificate of Origin in the human's name, so point it out at the review gate.
 - Possibly exploitable (unescaped output editors can influence, missing access check, token bypass): stop. No public commit, ticket, push or Slack. Point to https://typo3.org/community/teams/security/contact-us/. If you are unsure, ask the human before any public step.
 - Features and `[!!!]` target `main` only. A deprecation is `[TASK]` or `[FEATURE]`, never `[!!!]`.
@@ -72,6 +72,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | `python3 scripts/gerrit.py files\|diff <change>` | read a change without touching the checkout |
 | `python3 scripts/gerrit.py forge <issue> [--full]` | does the Forge issue exist, which tracker and status; `--full` adds description, fields, relations and comments (read before working on an issue) |
 | `python3 scripts/gerrit.py branches` | main + maintained LTS branches |
+| `python3 scripts/gerrit.py chain <sha>…` | are these commits the current patch sets of open changes (used by `preflight.sh` for a relation chain) |
 
 Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).
 
