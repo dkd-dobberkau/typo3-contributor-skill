@@ -70,7 +70,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | `bash scripts/preflight.sh` | pre-push gate: one commit, Change-Id, message, rst/prefix match, headers, assets, security, notes |
 | `python3 scripts/gerrit.py status\|comments [--all]\|ci\|fetch <change>` | owner/uploader, votes and reviewer messages, threads, failed CI jobs, fetch commands |
 | `python3 scripts/gerrit.py files\|diff <change>` | read a change without touching the checkout |
-| `python3 scripts/gerrit.py forge <issue>` | does the Forge issue exist, which tracker and status |
+| `python3 scripts/gerrit.py forge <issue> [--full]` | does the Forge issue exist, which tracker and status; `--full` adds description, fields, relations and comments (read before working on an issue) |
 | `python3 scripts/gerrit.py branches` | main + maintained LTS branches |
 
 Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).

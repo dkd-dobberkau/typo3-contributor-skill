@@ -10,7 +10,8 @@ Usage:
   gerrit.py fetch <change>           commands to fetch the latest patch set (from Gerrit, not GitHub)
   gerrit.py files <change>           files of the latest patch set (no checkout needed)
   gerrit.py diff <change>            full patch of the latest patch set (read-only, no checkout needed)
-  gerrit.py forge <issue>            Forge issue tracker/status/subject (does the number exist and fit?)
+  gerrit.py forge <issue> [--full]   Forge issue tracker/status/subject (does the number exist and fit?)
+                                     --full: also description, fields, relations and comments
   gerrit.py branches                 branches a bugfix may target (main + maintained LTS, get.typo3.org)
 """
 import datetime
@@ -22,6 +23,9 @@ import urllib.request
 GERRIT = "https://review.typo3.org"
 FETCH_URL = "https://review.typo3.org/Packages/TYPO3.CMS"
 FORGE_ISSUE = "https://forge.typo3.org/issues/{}.json"
+FORGE_ISSUE_FULL = FORGE_ISSUE + "?include=journals,relations"
+NOTE_LIMIT = 800
+INVERSE_RELATIONS = {"duplicates": "duplicated by", "blocks": "blocked by", "precedes": "follows", "copied_to": "copied from"}
 MAJORS_API = "https://get.typo3.org/api/v1/major/"
 GITLAB_JOBS = "https://git.typo3.org/api/v4/projects/typo3%2FCI%2Fcms/pipelines/{}/jobs?per_page=100&scope[]=failed"
 CI_PATTERN = re.compile(r"Core CI is (not )?happy: (https://git\.typo3\.org/typo3/CI/cms/-/pipelines/(\d+))")
@@ -121,6 +125,33 @@ def summarize_issue(data):
     issue = data["issue"]
     pick = lambda key: issue[key]["name"] if isinstance(issue.get(key), dict) else issue.get(key)
     return {key: pick(key) for key in ("id", "tracker", "status", "subject", "project", "category")}
+
+
+def shorten(text, limit):
+    text = text.replace("\r\n", "\n").strip()
+    return text if len(text) <= limit else text[:limit].rstrip() + "…"
+
+
+def summarize_issue_full(data):
+    """Summary plus what an agent needs before working on the issue: description, fields, relations, comments."""
+    issue = data["issue"]
+    summary = summarize_issue(data)
+    fields = {"Priority": issue["priority"]["name"]} if issue.get("priority") else {}
+    fields.update({field["name"]: field["value"] for field in issue.get("custom_fields", []) if field.get("value")})
+    relations = []
+    for relation in issue.get("relations") or []:
+        if relation["issue_id"] == issue["id"]:
+            relations.append(f"{relation['relation_type']} #{relation['issue_to_id']}")
+        else:
+            label = INVERSE_RELATIONS.get(relation["relation_type"], relation["relation_type"])
+            relations.append(f"{label} #{relation['issue_id']}")
+    notes = [
+        {"user": journal["user"]["name"], "date": journal["created_on"][:10], "text": shorten(journal["notes"], NOTE_LIMIT)}
+        for journal in issue.get("journals", []) if (journal.get("notes") or "").strip()
+    ]
+    summary.update(description=(issue.get("description") or "").replace("\r\n", "\n").strip(),
+                   fields=fields, relations=relations, notes=notes)
+    return summary
 
 
 def ssh_user():
@@ -304,6 +335,26 @@ def command_ci(change):
         print("Job logs need a git.typo3.org login; ask the human to open the links if the cause is unclear.")
 
 
+def command_forge(number, full=False):
+    data = json.loads(get((FORGE_ISSUE_FULL if full else FORGE_ISSUE).format(number)))
+    issue = summarize_issue_full(data) if full else summarize_issue(data)
+    print(f"#{issue['id']} [{issue['tracker']}] {issue['status']} · {issue['project']} / {issue['category']}")
+    print(issue["subject"])
+    print(f"https://forge.typo3.org/issues/{issue['id']}")
+    if not full:
+        return
+    if issue["fields"]:
+        print(" · ".join(f"{name}: {value}" for name, value in issue["fields"].items()))
+    if issue["relations"]:
+        print("relations: " + ", ".join(issue["relations"]))
+    print("\n## Description\n" + (issue["description"] or "(empty)"))
+    print(f"\n## Comments ({len(issue['notes'])})")
+    for note in issue["notes"]:
+        print(f"\n--- {note['user']}, {note['date']}\n{note['text']}")
+    if not issue["notes"]:
+        print("no comments")
+
+
 def main(argv):
     if len(argv) == 2 and argv[1] == "branches":
         majors = json.loads(get(MAJORS_API))
@@ -327,10 +378,7 @@ def main(argv):
     elif command == "diff":
         print(decode_patch(get(f"{GERRIT}/changes/{change}/revisions/current/patch")))
     elif command == "forge":
-        issue = summarize_issue(json.loads(get(FORGE_ISSUE.format(change))))
-        print(f"#{issue['id']} [{issue['tracker']}] {issue['status']} · {issue['project']} / {issue['category']}")
-        print(issue["subject"])
-        print(f"https://forge.typo3.org/issues/{issue['id']}")
+        command_forge(change, full="--full" in argv)
     else:
         summary = summarize_change(fetch_change(change))
         commands = fetch_commands(summary["number"], summary["ref"])

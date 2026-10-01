@@ -12,7 +12,7 @@ python3 <skill>/scripts/gerrit.py status <change>          # owner/uploader, vot
 python3 <skill>/scripts/gerrit.py comments <change> --all  # all threads, incl. resolved ones
 python3 <skill>/scripts/gerrit.py files <change>           # touched files
 python3 <skill>/scripts/gerrit.py diff <change>            # full patch: code review without touching the checkout
-python3 <skill>/scripts/gerrit.py forge <resolved issue>   # what the change should fix
+python3 <skill>/scripts/gerrit.py forge <resolved issue> --full  # what the change should fix, incl. discussion
 ```
 
 - **`status` prints "this is YOUR change"** (Gerrit username = ssh user)? Then no vote, only comments.

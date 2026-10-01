@@ -135,7 +135,7 @@ Guardrails:
 
 - git-ai: does a plain `git push origin HEAD:refs/for/main` through the git-ai proxy also try to push
   `refs/notes/ai` to Gerrit? (verify in dry run; Gerrit would likely reject it).
-- Whether Forge REST (Redmine API key) should be added later for read-only issue lookup.
+- ~~Whether Forge REST (Redmine API key) should be added later for read-only issue lookup.~~ Resolved: the public JSON API needs no key; `gerrit.py forge --full` reads description, relations and comments. No Redmine MCP server, so the plugin stays read-only and setup-free.
 
 ## Changes after testing (2026-10-01)
 

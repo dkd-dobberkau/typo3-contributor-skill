@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- `gerrit.py forge <issue> --full`: description, priority and custom fields (e.g. Complexity, TYPO3 Version), relations and comments of a Forge issue, read anonymously from the public JSON API.
+
 ## [0.4.0] - 2026-10-01
 
 ### Added

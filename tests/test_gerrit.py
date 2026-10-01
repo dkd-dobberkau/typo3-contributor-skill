@@ -172,6 +172,21 @@ class ForgeTest(unittest.TestCase):
             "project": "TYPO3 Core", "category": "DataHandler aka TCEmain",
         })
 
+    def test_full_issue(self):
+        issue = gerrit.summarize_issue_full(json.loads((FIXTURES / "forge-issue-full.json").read_text()))
+        self.assertEqual(issue["status"], "Needs Feedback")
+        self.assertIsNone(issue["category"])
+        self.assertTrue(issue["description"].startswith("h2. Steps to reproduce\n"))
+        self.assertEqual(issue["fields"], {"Priority": "Should have", "TYPO3 Version": "13", "Complexity": "easy"})
+        self.assertEqual(issue["relations"], ["relates #100001", "duplicated by #100002"])
+        self.assertEqual([note["user"] for note in issue["notes"]], ["Core Member", "Reporter"])
+        self.assertEqual(issue["notes"][0]["date"], "2025-11-23")
+
+    def test_full_issue_truncates_long_notes(self):
+        issue = gerrit.summarize_issue_full(json.loads((FIXTURES / "forge-issue-full.json").read_text()))
+        self.assertLessEqual(len(issue["notes"][1]["text"]), gerrit.NOTE_LIMIT + 1)
+        self.assertTrue(issue["notes"][1]["text"].endswith("…"))
+
 
 class ThreadsOutputTest(unittest.TestCase):
     def test_empty_threads_message(self):

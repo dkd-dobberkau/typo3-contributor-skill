@@ -2,7 +2,7 @@
 
 ## 1. Issue
 
-Every commit needs its own Forge issue (`Resolves: #<id>`). If none exists, draft one with `references/issue.md`; the human creates it. Never invent a number. For a number the human gives you, run `python3 scripts/gerrit.py forge <id>`: does it exist and describe this change?
+Every commit needs its own Forge issue (`Resolves: #<id>`). If none exists, draft one with `references/issue.md`; the human creates it. Never invent a number. For a number the human gives you, run `python3 scripts/gerrit.py forge <id> --full`: does it exist and describe this change? Read the comments too; they often hold reproduction details, workarounds or a Core member's preferred approach.
 
 Possibly exploitable? Stop and go to the Security Team (SKILL.md hard rules). Typical cases: unescaped output of values editors can set, missing access checks, token or hash bypass.
 
