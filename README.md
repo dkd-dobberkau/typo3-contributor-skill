@@ -20,6 +20,15 @@ The human reviews every diff, decides every push, and posts all comments, votes 
 - Documentation-only patches and Forge issue drafts
 - Optional [git-ai](https://usegitai.com) line-level attribution to focus human review and quantify AI disclosure
 
+## Workflow
+
+Blue steps are done by the agent locally, orange ones are decided by the human, grey ones happen on the servers.
+
+![Contribution workflow](docs/contribution-workflow.svg)
+
+Source: [`docs/contribution-workflow.d2`](docs/contribution-workflow.d2), rendered with
+`d2 docs/contribution-workflow.d2 docs/contribution-workflow.svg`.
+
 ## Scripts
 
 | Script | Purpose |

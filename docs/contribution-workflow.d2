@@ -1,0 +1,113 @@
+# TYPO3 Core contribution workflow as guided by the typo3-contributor skill.
+# Render: d2 --layout elk docs/contribution-workflow.d2 docs/contribution-workflow.svg
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+direction: down
+
+classes: {
+  agent: {style: {fill: "#e8f1fb"; stroke: "#2b6cb0"; border-radius: 6}}
+  human: {style: {fill: "#fff4e0"; stroke: "#c05621"; border-radius: 6; bold: true}}
+  server: {style: {fill: "#eeeeee"; stroke: "#555555"; border-radius: 6}}
+  gate: {shape: diamond; style: {fill: "#fff4e0"; stroke: "#c05621"}}
+  decision: {shape: diamond; style: {fill: "#f7fafc"; stroke: "#2b6cb0"}}
+  stop: {style: {fill: "#fde8e8"; stroke: "#c53030"; bold: true}}
+}
+
+legend: Legend {
+  near: top-right
+  a: Agent (local) {class: agent}
+  h: Human decides {class: human}
+  s: Server {class: server}
+  a -> h -> s: {style.opacity: 0}
+}
+
+start: Bug report / feature idea {shape: oval}
+
+issue: 1. Issue {
+  exists: Forge issue exists? {class: decision}
+  read: "gerrit.py forge <id> --full\n(description, relations, comments)" {class: agent}
+  draft: "Draft ticket\n(references/issue.md)" {class: agent}
+  create: Create Forge ticket {class: human}
+  exists -> read: yes
+  exists -> draft: no
+  draft -> create
+  create -> read
+}
+
+security: Possibly exploitable? {class: decision}
+secteam: "STOP – no public commit, ticket, push\n→ TYPO3 Security Team" {class: stop}
+
+diagnose: 2. Diagnose / design {
+  premise: "Check premise\n(code path, evidence, gerrit.py status)" {class: agent}
+  confirm: Confirm diagnosis / API design {class: human}
+  premise -> confirm
+}
+
+implement: 3. Implement {
+  branch: "git checkout -b change-<topic> origin/main" {class: agent}
+  test: Write test, watch it fail {class: agent}
+  code: "Fix / feature\n(+ changelog rst, build assets)" {class: agent}
+  branch -> test -> code
+}
+
+commit: 4. Commit {
+  ask: Human asked for commit? {class: decision}
+  do: "git commit -s\n(one commit, no Co-Authored-By)" {class: agent}
+  lint: check-commit-msg.sh {class: agent}
+  ask -> do: yes
+  do -> lint
+}
+
+qa: "5. qa.sh\n(runTests suites in Docker)" {class: agent}
+preflight: "6. preflight.sh\n→ PREFLIGHT OK" {class: agent}
+
+gate: "Review gate\n(diff, preflight, QA, DCO,\ndisclosure draft, push cmd)\nYes to push?" {class: gate}
+
+handover: "Handover\n(stay local, handoff doc)" {class: agent}
+
+push: "git push origin HEAD:refs/for/main\n(guard.py: preflight + confirm)" {class: agent}
+
+servers: review.typo3.org / GitLab {
+  gerrit: Gerrit change {class: server}
+  ci: "Core CI\n(core-ci Verified ±1)" {class: server}
+  reviewers: Reviewers {class: server}
+  gerrit -> ci
+  gerrit -> reviewers
+}
+
+post: "Post disclosure comment,\nreplies & votes in web UI" {class: human}
+
+outcome: Feedback or CI red? {class: decision}
+
+iterate: Iterate {
+  inspect: "gerrit.py status / comments --all / ci" {class: agent}
+  fetch: "gerrit.py fetch <change>\n(latest patch set, rebase)" {class: agent}
+  amend: "Fix, git commit -a --amend\n(same Change-Id)" {class: agent}
+  drafts: Draft reply per thread {class: agent}
+  inspect -> fetch -> amend -> drafts
+}
+
+merged: "Merged → Reset\n(references/setup.md)" {shape: oval}
+
+start -> issue.exists
+issue.read -> security
+security -> secteam: yes / unsure
+security -> diagnose.premise: no
+diagnose.confirm -> implement.branch
+implement.code -> commit.ask
+commit.lint -> qa
+qa -> preflight
+preflight -> gate
+gate -> push: yes, at the gate
+gate -> handover: no / no time
+push -> servers.gerrit
+servers -> post
+servers -> outcome
+outcome -> iterate.inspect: yes
+outcome -> merged: no, merged
+iterate.drafts -> qa: new patch set {style.stroke-dash: 4}
