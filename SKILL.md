@@ -27,7 +27,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | runTests | Always `Build/Scripts/runTests.sh -b "$RT" …` with `RT=${TYPO3_CONTRIB_RUNTIME:-docker}` (plugin option `container_runtime`; the scripts do this themselves) (with `CI=true` for test/build suites, as in AGENTS.md). No `-s lint` and no `-s acceptance`: use `lintPhp`/`lintTypescript`/`lintScss`, and `e2e` (Playwright, `Build/tests/playwright/e2e/*.spec.ts`). Check `-h` before inventing a suite |
 | CI | GitLab pipeline; Gerrit user `core-ci` votes Verified ±1 ("Core CI is (not) happy: <pipeline>"). Not Bamboo |
 | commit-msg hook | **Never blocks** (exit 0 even without `Resolves:`) and still adds a Change-Id. It only flags lines of 73+ characters. AGENTS.md is stricter: no line may reach 72. Run `check-commit-msg.sh` |
-| Pre-commit hook | Optional. It runs php-cs-fixer with the host PHP and fails with a fatal error if that PHP is older than Core needs. `qa.sh` runs cgl in Docker |
+| Pre-commit hook | Optional. It runs php-cs-fixer with the host PHP; if that PHP is older than Core needs, it prints a fatal error and false CGL errors, but the commit is still created (the hook never aborts). `qa.sh` runs cgl in Docker |
 | Versions | `main` = `composer.json` → `branch-alias.dev-main`. Bugfix targets: `gerrit.py branches` (main + maintained LTS from get.typo3.org); `git branch -r` also lists dead branches. Never guess |
 | Changelog | `typo3/sysext/core/Documentation/Changelog/<Typo3Version::BRANCH>/`. Read `…/Changelog/Howto.rst` in the checkout. `*Scanned` tag only for Breaking/Deprecation |
 | AI disclosure | In the Gerrit comment (`templates/gerrit-disclosure.md`), **never** a `Co-Authored-By` trailer in the commit |

@@ -116,7 +116,9 @@ and needs an `ANTHROPIC_API_KEY` repository secret.
 - `runTests.sh -s acceptance` no longer exists; end-to-end tests are `-s e2e` (Playwright).
 - The `commit-msg` hook reports errors but does not block the commit.
 - `FullyScanned`/`PartiallyScanned`/`NotScanned` are required only for Breaking/Deprecation changelog files.
-- The optional `pre-commit` hook runs php-cs-fixer with the host PHP and fails when that is older than Core requires.
+- The optional `pre-commit` hook runs php-cs-fixer with the host PHP. When that is older than Core requires, it prints a fatal error and false CGL errors; the commit is still created.
+
+Fixes for the guide are proposed upstream: [#427](https://github.com/TYPO3-Documentation/TYPO3CMS-Guide-ContributionWorkflow/pull/427), [#428](https://github.com/TYPO3-Documentation/TYPO3CMS-Guide-ContributionWorkflow/pull/428), [#429](https://github.com/TYPO3-Documentation/TYPO3CMS-Guide-ContributionWorkflow/pull/429), [#430](https://github.com/TYPO3-Documentation/TYPO3CMS-Guide-ContributionWorkflow/pull/430).
 
 Inside the Core checkout, the Core team's `AGENTS.md` is authoritative; this skill follows it and adds human supervision.
 

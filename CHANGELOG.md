@@ -6,7 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- README links the upstream pull requests that fix the outdated guide passages.
 - Troubleshooting: why Gerrit shows "Merge Conflict" on a change in a deliberate relation chain (`CHERRY_PICK` submit type) and how to confirm it is harmless.
+
+### Fixed
+- The pre-commit hook does not block a commit: with an old host PHP it prints a fatal error and false CGL errors, the commit is still created (SKILL.md, README).
 
 ## [0.5.2] - 2026-10-01
 
