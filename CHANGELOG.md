@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- Troubleshooting: why Gerrit shows "Merge Conflict" on a change in a deliberate relation chain (`CHERRY_PICK` submit type) and how to confirm it is harmless.
+
 ## [0.5.2] - 2026-10-01
 
 ### Added
