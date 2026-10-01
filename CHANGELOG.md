@@ -3,14 +3,12 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.4.0] - 2026-10-01
 
 ### Added
 - GitHub Actions CI: test suite on Ubuntu and macOS, ShellCheck for `scripts/`, plugin/marketplace manifest validation, and a check that `plugin.json`, the changelog and release tags carry the same version.
-
 - Plugin options `container_runtime` (docker/podman) and `core_dir`, exported to the session by a `SessionStart` hook (`TYPO3_CONTRIB_RUNTIME`, `TYPO3_CORE_DIR`). All scripts honour them.
 - `PreToolUse` guard hook (`hooks/guard.py`): Gerrit pushes run `preflight.sh` and need confirmation, posting to Gerrit is denied, `Co-Authored-By` in Core commits is denied.
-
 - `evals/`: five `claude plugin eval` cases with mostly deterministic graders, and an on-demand `Evals` workflow.
 
 ### Fixed
@@ -39,6 +37,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Scripts: `check-setup.sh`, `qa.sh`, `check-commit-msg.sh`, `preflight.sh`, `fix-trailer-order.sh`, `gerrit.py`.
 - Tests: plain-bash and Python tests with anonymized Gerrit/Forge fixtures; documented baselines (`tests/baselines.md`); tests run in a throwaway directory.
 
+[0.4.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.4.0
 [0.3.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.3.0
 [0.2.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.2.0
 [0.1.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.1.0
