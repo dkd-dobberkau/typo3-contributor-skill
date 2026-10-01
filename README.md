@@ -1,5 +1,7 @@
 # typo3-contributor
 
+[![CI](https://github.com/dkd-dobberkau/typo3-contributor-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/dkd-dobberkau/typo3-contributor-skill/actions/workflows/ci.yml)
+
 A Claude Code skill for contributing to TYPO3 Core with an AI agent under human supervision.
 It follows the official
 [TYPO3 Contribution Workflow Guide](https://docs.typo3.org/m/typo3/guide-contributionworkflow/main/en-us/)

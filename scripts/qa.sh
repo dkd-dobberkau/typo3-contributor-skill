@@ -53,7 +53,8 @@ fi
 
 # Tests for changed PHP: changed test files directly, else nearest Tests/Unit|Functional dir.
 nearest_test_dir() { # extension relative-path-below-Classes kind
-    local dir="typo3/sysext/$1/Tests/$3/$(dirname "$2")"
+    local dir
+    dir="typo3/sysext/$1/Tests/$3/$(dirname "$2")"
     while [ "$dir" != "typo3/sysext/$1/Tests/$3" ] && [ ! -d "$dir" ]; do
         dir=$(dirname "$dir")
     done

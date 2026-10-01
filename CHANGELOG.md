@@ -3,6 +3,15 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- GitHub Actions CI: test suite on Ubuntu and macOS, ShellCheck for `scripts/`, plugin/marketplace manifest validation, and a check that `plugin.json`, the changelog and release tags carry the same version.
+
+### Fixed
+- Quickstart tests no longer depend on `docker`/`ssh` being installed on the test machine.
+- ShellCheck findings in `qa.sh` and `preflight.sh`.
+
 ## [0.3.0] - 2026-10-01
 
 ### Added

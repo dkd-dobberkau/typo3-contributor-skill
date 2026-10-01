@@ -45,6 +45,7 @@ if msg_output=$(bash "$SCRIPT_DIR/check-commit-msg.sh" 2>&1); then
     grep '^WARN' <<<"$msg_output"
 else
     error commit-msg "Commit message has errors:"
+    # shellcheck disable=SC2001 # indent every line of the checker output
     sed 's/^/        /' <<<"$msg_output"
 fi
 

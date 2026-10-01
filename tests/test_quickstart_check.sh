@@ -23,6 +23,11 @@ case "$1 $2" in
 esac
 STUB
     chmod +x "$bin/ddev"
+    # Step 1 only checks that the tools exist; stub the ones CI runners may lack.
+    for tool in docker ssh; do
+        printf '#!/bin/sh\nexit 0\n' > "$bin/$tool"
+        chmod +x "$bin/$tool"
+    done
     echo "$home $core $bin"
 }
 
