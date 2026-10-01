@@ -29,6 +29,8 @@ Blue steps are done by the agent locally, orange ones are decided by the human, 
 Source: [`docs/contribution-workflow.d2`](docs/contribution-workflow.d2), rendered with
 `d2 docs/contribution-workflow.d2 docs/contribution-workflow.svg`.
 
+Questions? See the [FAQ](docs/FAQ.md).
+
 ## Scripts
 
 | Script | Purpose |
