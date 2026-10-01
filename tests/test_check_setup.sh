@@ -23,6 +23,7 @@ run_setup() { # home core [args]
 
 # fresh checkout: reports missing pushurl + hooks, exits non-zero
 read -r home core <<<"$(setup_env)"
+: "${home:?setup_env failed}" "${core:?setup_env failed}"
 if output=$(run_setup "$home" "$core"); then
     fail "check-setup fresh: expected failure, got: $output"
 else

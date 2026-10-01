@@ -2,6 +2,9 @@
 # Plain-bash test runner for scripts/. Usage: bash tests/run.sh
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# Run from a throwaway directory so a test bug (e.g. git -C "" with an empty variable)
+# can never touch this repository's own config.
+cd "$(mktemp -d)" || exit 1
 PASS=0
 FAIL=0
 
