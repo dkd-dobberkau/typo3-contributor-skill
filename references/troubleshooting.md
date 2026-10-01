@@ -12,5 +12,5 @@
 | `runTests.sh` very slow on macOS | Container filesystem overhead. Exclude `typo3temp/` and `.cache` from IDE indexing and from DDEV mutagen sync. |
 | `/var/run/docker.sock: permission denied` | Docker is not running, or the user lacks access. Start Docker Desktop. |
 | Commit prints `PHP Fatal error … Composer detected issues in your platform` | The optional pre-commit hook runs php-cs-fixer with an older host PHP. Remove `.git/hooks/pre-commit`; `qa.sh` runs cgl in Docker. |
-| Test images outdated, odd CI vs. local differences | `Build/Scripts/runTests.sh -b docker -u`, then `-s composerInstall` |
+| Test images outdated, odd CI vs. local differences | `Build/Scripts/runTests.sh -b "$RT" -u`, then `-s composerInstall` |
 | Core CI red but local green | Base is stale. Run `git fetch origin && git rebase origin/main`, re-run with the CI job's flags (`gerrit.py ci`). |

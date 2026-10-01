@@ -101,3 +101,11 @@ mkdir -p "$d/typo3/sysext/core/Classes/Database"
 printf '%s\n' "$php_file_ok" > "$d/typo3/sysext/core/Classes/Database/Foo.php"
 commit_in "$d" "[BUGFIX] Fix query"
 expect_qa db-hint "$d" "-d mariadb"
+
+# container runtime comes from TYPO3_CONTRIB_RUNTIME (plugin option container_runtime)
+d=$(qa_checkout)
+printf '%s\n' "$php_file_ok" > "$d/typo3/sysext/backend/Classes/Form/Element/JsonElement.php"
+commit_in "$d" "[BUGFIX] Escape placeholder"
+output=$(cd "$d" && TYPO3_CONTRIB_RUNTIME=podman bash "$QA" --dry-run 2>&1)
+if grep -q -- "-b podman -s cglGit" <<<"$output" && ! grep -q -- "-b docker" <<<"$output"; then pass; else fail "qa should honour TYPO3_CONTRIB_RUNTIME=podman: $output"; fi
+output=$(cd "$d" && TYPO3_CONTRIB_RUNTIME=lxc bash "$QA" --dry-run 2>&1) && fail "qa should reject unknown runtime" || { grep -q "docker or podman" <<<"$output" && pass || fail "qa unknown runtime message: $output"; }

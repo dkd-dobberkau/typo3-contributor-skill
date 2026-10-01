@@ -79,7 +79,7 @@ bash <skill>/scripts/qa.sh            # in the worktree; composerInstall first i
 
 1. Baseline: `git checkout --detach origin/main` in the main checkout. Reproduce the issue, or the reviewer's finding.
 2. Then `git checkout --detach FETCH_HEAD` (fetch again if needed), followed by:
-   `Build/Scripts/runTests.sh -b docker -s composerInstall && ddev typo3 cache:flush && ddev typo3 extension:setup`
+   `Build/Scripts/runTests.sh -b "$RT" -s composerInstall && ddev typo3 cache:flush && ddev typo3 extension:setup`
 3. Run the same steps. Check `var/log/typo3_*.log` and the browser console.
 4. Put temporary config (e.g. in `config/system/additional.php`) in one place and remove it afterwards.
 
@@ -109,7 +109,7 @@ Append the reviewer line from `templates/gerrit-disclosure.md`.
 ```bash
 cd <main checkout>
 git checkout <noted branch>            # the branch, not a detached SHA
-Build/Scripts/runTests.sh -b docker -s composerInstall && ddev typo3 cache:flush && ddev typo3 extension:setup   # if DDEV was switched
+Build/Scripts/runTests.sh -b "$RT" -s composerInstall && ddev typo3 cache:flush && ddev typo3 extension:setup   # if DDEV was switched
 git worktree remove ../review-<change> && git worktree prune
 git stash list                         # restore the named stash if you created one
 git status; git log -1 --format='%H %s'   # must match the noted state

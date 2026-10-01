@@ -54,7 +54,29 @@ ln -s "$PWD/typo3-contributor-skill" ~/.claude/skills/typo3-contributor
 
 Use one of the two ways, not both, or the skill is listed twice.
 
-Requirements: git, bash, python3, Docker (for `runTests.sh -b docker`), a typo3.org account with an SSH key in Gerrit.
+Requirements: git, bash, python3, Docker or Podman, a typo3.org account with an SSH key in Gerrit.
+
+### Configuration (plugin)
+
+```bash
+claude plugin configure typo3-contributor@typo3-contributor
+```
+
+| Option | Default | Effect |
+|---|---|---|
+| `container_runtime` | `docker` | `runTests.sh -b docker\|podman` in all scripts (exported as `TYPO3_CONTRIB_RUNTIME`) |
+| `core_dir` | `~/work/TYPO3-Contribute` | location of the `typo3/typo3` checkout (exported as `TYPO3_CORE_DIR`) |
+
+As a personal skill, set `TYPO3_CONTRIB_RUNTIME` / `TYPO3_CORE_DIR` in your shell instead.
+
+### Guard hooks (plugin)
+
+The plugin ships a `PreToolUse` hook that turns the skill's rules into hard checks for the agent:
+- a push to `review.typo3.org` is denied unless `preflight.sh` passes, and otherwise needs your confirmation;
+- `gerrit review`/`abandon`/`submit` and Gerrit REST writes are always denied;
+- `Co-Authored-By` in commits inside the Core checkout is denied.
+
+Other repositories and commands are not affected.
 
 ## Tests
 

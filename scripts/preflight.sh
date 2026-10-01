@@ -90,7 +90,7 @@ if grep -q '^Build/Sources/' <<<"$all_files"; then
     if grep -qE '^typo3/sysext/[^/]+/Resources/Public/' <<<"$all_files"; then
         ok "Build/Sources changed together with compiled Resources/Public files"
     else
-        error assets-missing "Build/Sources changed but no compiled files: run Build/Scripts/runTests.sh -b docker -s build and amend the result."
+        error assets-missing "Build/Sources changed but no compiled files: run Build/Scripts/runTests.sh -b ${TYPO3_CONTRIB_RUNTIME:-docker} -s build and amend the result."
     fi
 fi
 

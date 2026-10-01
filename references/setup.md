@@ -35,7 +35,7 @@ Follow `ddev config` from the guide's Quickstart (project `t3c-main`, docroot `.
 
 ```bash
 ddev start
-Build/Scripts/runTests.sh -b docker -s composerInstall
+Build/Scripts/runTests.sh -b "$RT" -s composerInstall
 ddev typo3 setup          # interactive; or follow guide Quickstart step "TYPO3"
 ```
 
@@ -47,10 +47,10 @@ Destructive for local changes. First check for unpushed work: `git status`, `git
 
 ```bash
 git stash push -u -m "before-reset-$(date +%F)"   # only if there are changes
-Build/Scripts/runTests.sh -b docker -s clean
+Build/Scripts/runTests.sh -b "$RT" -s clean
 git fetch origin && git checkout main && git reset --hard origin/main
-Build/Scripts/runTests.sh -b docker -u            # update test images
-Build/Scripts/runTests.sh -b docker -s composerInstall
+Build/Scripts/runTests.sh -b "$RT" -u            # update test images
+Build/Scripts/runTests.sh -b "$RT" -s composerInstall
 ddev typo3 cache:flush && ddev typo3 cache:warmup && ddev typo3 extension:setup   # if DDEV is used
 ```
 

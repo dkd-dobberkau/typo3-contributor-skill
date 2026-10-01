@@ -25,7 +25,9 @@ FORGE_ISSUE = "https://forge.typo3.org/issues/{}.json"
 MAJORS_API = "https://get.typo3.org/api/v1/major/"
 GITLAB_JOBS = "https://git.typo3.org/api/v4/projects/typo3%2FCI%2Fcms/pipelines/{}/jobs?per_page=100&scope[]=failed"
 CI_PATTERN = re.compile(r"Core CI is (not )?happy: (https://git\.typo3\.org/typo3/CI/cms/-/pipelines/(\d+))")
-RUNTESTS = "Build/Scripts/runTests.sh -b docker"
+import os
+
+RUNTESTS = f"Build/Scripts/runTests.sh -b {os.environ.get('TYPO3_CONTRIB_RUNTIME', 'docker')}"
 
 
 def parse_gerrit_json(text):

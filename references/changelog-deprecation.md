@@ -36,7 +36,7 @@ Sections:
 
 Last line: `..  index::` with tags such as `Backend`, `Frontend`, `PHP-API`, `TCA`, `TypoScript`, `Fluid`, `JavaScript`, `CLI`, `Database`, `FAL`, `RTE`, `TSConfig`, `LocalConfiguration`, plus `ext:<extension>`. **Breaking and Deprecation** also need exactly one of `FullyScanned`, `PartiallyScanned`, `NotScanned`.
 
-Check it: `Build/Scripts/runTests.sh -b docker -s checkRst`. To render it: `-s checkRstRenderingChanged` (after commit).
+Check it: `Build/Scripts/runTests.sh -b "$RT" -s checkRst`. To render it: `-s checkRstRenderingChanged` (after commit).
 
 The web generator at https://forger.typo3.com/utilities/rst produces the same skeleton. Offer it to the human as an alternative.
 
@@ -85,7 +85,7 @@ Add a matcher whenever PHP API is deprecated or removed: `typo3/sysext/install/C
 - `NotScanned`: the change cannot be matched, e.g. behaviour or configuration changes.
 
 Verify:
-- `Build/Scripts/runTests.sh -b docker -s checkExtensionScannerRst`
+- `Build/Scripts/runTests.sh -b "$RT" -s checkExtensionScannerRst`
 - `-s unit typo3/sysext/install/Tests/Unit/ExtensionScanner/`
 
 ## Backport requests ("we need it in 14.3 / 13.4")

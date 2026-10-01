@@ -4,6 +4,7 @@
 #   --dry-run  only print the commands
 #   --fix      run cglGit/cglHeaderGit/normalizeXliff without -n (modifies files; amend afterwards)
 # Run inside the Core checkout, after committing (cglGit checks the latest commit).
+# Env: TYPO3_CONTRIB_RUNTIME=docker|podman (default docker)
 set -u
 
 usage() { sed -n '2,6p' "$0" | sed 's/^# \{0,1\}//'; }
@@ -21,7 +22,13 @@ for arg in "$@"; do
     esac
 done
 
-RUNTESTS="Build/Scripts/runTests.sh -b docker"
+# Container runtime: plugin option container_runtime (exported by hooks/session-env.sh), default docker.
+RUNTIME=${TYPO3_CONTRIB_RUNTIME:-docker}
+case $RUNTIME in
+    docker | podman) ;;
+    *) echo "TYPO3_CONTRIB_RUNTIME must be docker or podman, got '$RUNTIME'" >&2; exit 2 ;;
+esac
+RUNTESTS="Build/Scripts/runTests.sh -b $RUNTIME"
 dry_flag="-n"
 [ "$fix" -eq 1 ] && dry_flag=""
 

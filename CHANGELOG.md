@@ -8,6 +8,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 - GitHub Actions CI: test suite on Ubuntu and macOS, ShellCheck for `scripts/`, plugin/marketplace manifest validation, and a check that `plugin.json`, the changelog and release tags carry the same version.
 
+- Plugin options `container_runtime` (docker/podman) and `core_dir`, exported to the session by a `SessionStart` hook (`TYPO3_CONTRIB_RUNTIME`, `TYPO3_CORE_DIR`). All scripts honour them.
+- `PreToolUse` guard hook (`hooks/guard.py`): Gerrit pushes run `preflight.sh` and need confirmation, posting to Gerrit is denied, `Co-Authored-By` in Core commits is denied.
+
 ### Fixed
 - Quickstart tests no longer depend on `docker`/`ssh` being installed on the test machine.
 - ShellCheck findings in `qa.sh` and `preflight.sh`.

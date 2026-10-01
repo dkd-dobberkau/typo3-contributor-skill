@@ -138,7 +138,8 @@ if [ "$online" -eq 1 ]; then
     else
         missing ssh "ssh -p 29418 ${gerrit_user:-<user>}@review.typo3.org failed (key in Gerrit? see Troubleshooting)"
     fi
-    if docker info >/dev/null 2>&1; then ok "docker running"; else missing docker "Docker is not running (runTests.sh -b docker)"; fi
+    runtime=${TYPO3_CONTRIB_RUNTIME:-docker}
+    if "$runtime" info >/dev/null 2>&1; then ok "$runtime running"; else missing "$runtime" "$runtime is not running (runTests.sh -b $runtime)"; fi
 fi
 
 echo

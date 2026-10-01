@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Lint scripts
-        run: shellcheck -x scripts/*.sh
+        run: shellcheck -x scripts/*.sh hooks/*.sh
 
   plugin-manifest:
     name: Plugin manifest

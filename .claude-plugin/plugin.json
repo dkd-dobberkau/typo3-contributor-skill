@@ -15,5 +15,24 @@
     "gerrit",
     "contribution",
     "code-review"
-  ]
+  ],
+  "userConfig": {
+    "container_runtime": {
+      "type": "string",
+      "title": "Container runtime",
+      "description": "Runtime for Build/Scripts/runTests.sh (-b).",
+      "options": [
+        "docker",
+        "podman"
+      ],
+      "required": false,
+      "default": "docker"
+    },
+    "core_dir": {
+      "type": "directory",
+      "title": "TYPO3 Core checkout",
+      "description": "Path of your typo3/typo3 checkout. Unset means ~/work/TYPO3-Contribute.",
+      "required": false
+    }
+  }
 }

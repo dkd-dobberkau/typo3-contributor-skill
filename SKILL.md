@@ -21,10 +21,10 @@ all comments and votes and creates Forge tickets; you draft them.
 
 | Topic | Fact |
 |---|---|
-| Checkout | `${TYPO3_CORE_DIR:-$HOME/work/TYPO3-Contribute}`, DDEV project `t3c-main`, CLI `ddev typo3 …` |
+| Checkout | `${TYPO3_CORE_DIR:-$HOME/work/TYPO3-Contribute}` (plugin option `core_dir`), DDEV project `t3c-main`, CLI `ddev typo3 …` |
 | `origin` | Fetches from **GitHub** (no `refs/changes`). Patch sets come from `https://review.typo3.org/Packages/TYPO3.CMS`; use `gerrit.py fetch <change>` |
 | Push | Always `git push origin HEAD:refs/for/main` (pushurl = Gerrit ssh, user from `~/.ssh/config`) |
-| runTests | Always `Build/Scripts/runTests.sh -b docker …` (with `CI=true` for test/build suites, as in AGENTS.md). No `-s lint` and no `-s acceptance`: use `lintPhp`/`lintTypescript`/`lintScss`, and `e2e` (Playwright, `Build/tests/playwright/e2e/*.spec.ts`). Check `-h` before inventing a suite |
+| runTests | Always `Build/Scripts/runTests.sh -b "$RT" …` with `RT=${TYPO3_CONTRIB_RUNTIME:-docker}` (plugin option `container_runtime`; the scripts do this themselves) (with `CI=true` for test/build suites, as in AGENTS.md). No `-s lint` and no `-s acceptance`: use `lintPhp`/`lintTypescript`/`lintScss`, and `e2e` (Playwright, `Build/tests/playwright/e2e/*.spec.ts`). Check `-h` before inventing a suite |
 | CI | GitLab pipeline; Gerrit user `core-ci` votes Verified ±1 ("Core CI is (not) happy: <pipeline>"). Not Bamboo |
 | commit-msg hook | **Never blocks** (exit 0 even without `Resolves:`) and still adds a Change-Id. It only flags lines of 73+ characters. AGENTS.md is stricter: no line may reach 72. Run `check-commit-msg.sh` |
 | Pre-commit hook | Optional. It runs php-cs-fixer with the host PHP and fails with a fatal error if that PHP is older than Core needs. `qa.sh` runs cgl in Docker |
@@ -74,6 +74,15 @@ all comments and votes and creates Forge tickets; you draft them.
 | `python3 scripts/gerrit.py branches` | main + maintained LTS branches |
 
 Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).
+
+## Enforced by plugin hooks
+
+Installed as a plugin, a `PreToolUse` hook (`hooks/guard.py`) enforces the hard rules:
+- a push to Gerrit runs `preflight.sh` first and is denied if it fails; otherwise the human is asked to confirm;
+- posting to Gerrit is always denied;
+- `Co-Authored-By` in a Core commit is denied.
+
+A denied call is the rule working, so fix the cause instead of rephrasing the command to slip past the hook.
 
 ## The human review gate (before every push)
 

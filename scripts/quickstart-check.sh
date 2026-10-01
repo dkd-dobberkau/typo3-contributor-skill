@@ -20,7 +20,8 @@ step() { echo; echo "== Step $1"; }
 
 # --- 1. Prerequisites ---------------------------------------------------------
 step "1: Prerequisites"
-for tool in bash git ssh docker ddev; do
+RUNTIME=${TYPO3_CONTRIB_RUNTIME:-docker}
+for tool in bash git ssh "$RUNTIME" ddev; do
     if command -v "$tool" >/dev/null 2>&1; then
         ok "$tool: $(command -v "$tool")"
     else
@@ -29,7 +30,7 @@ for tool in bash git ssh docker ddev; do
 done
 command -v ddev >/dev/null 2>&1 && info "$(ddev --version 2>/dev/null | head -1)"
 if [ "$online" -eq 1 ]; then
-    if docker info >/dev/null 2>&1; then ok "docker daemon running"; else missing docker-running "Docker is not running"; fi
+    if "$RUNTIME" info >/dev/null 2>&1; then ok "$RUNTIME running"; else missing runtime-running "$RUNTIME is not running"; fi
 fi
 
 # --- 2. Accounts (mostly manual) ----------------------------------------------
