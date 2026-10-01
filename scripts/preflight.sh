@@ -13,7 +13,8 @@ warn() { echo "WARN [$1] $2"; }
 ok() { echo "ok    $1"; }
 
 git rev-parse --git-dir >/dev/null 2>&1 || { error not-a-repo "Not inside a git checkout."; exit 1; }
-git_dir=$(git rev-parse --git-dir)
+# --git-path resolves linked worktrees (hooks live in the main checkout) and core.hooksPath
+hooks_dir=$(git rev-parse --path-format=absolute --git-path hooks 2>/dev/null || git rev-parse --git-path hooks)
 
 # --- exactly one commit ahead (no accidental relation chain) ----------------
 ahead=$(git rev-list --count "$BASE..HEAD" 2>/dev/null || echo "?")
@@ -24,10 +25,10 @@ else
 fi
 
 # --- hooks -------------------------------------------------------------------
-if [ -x "$git_dir/hooks/commit-msg" ]; then
+if [ -x "$hooks_dir/commit-msg" ]; then
     ok "commit-msg hook installed"
 else
-    error hook-missing "commit-msg hook missing or not executable: cp Build/git-hooks/commit-msg $git_dir/hooks/ && chmod +x $git_dir/hooks/commit-msg (or: composer gerrit:setup)"
+    error hook-missing "commit-msg hook missing or not executable: cp Build/git-hooks/commit-msg $hooks_dir/ && chmod +x $hooks_dir/commit-msg (or: composer gerrit:setup)"
 fi
 
 message=$(git log -1 --format=%B)

@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+- `preflight.sh` found no commit-msg hook in a linked worktree (`git worktree add`), so the guard hook denied pushes from review worktrees. Hooks are now resolved with `git rev-parse --git-path hooks`, which also honours `core.hooksPath`.
+
 ## [0.5.0] - 2026-10-01
 
 ### Added

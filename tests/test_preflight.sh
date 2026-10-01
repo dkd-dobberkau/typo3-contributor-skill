@@ -41,6 +41,14 @@ d=$(make_checkout); rm "$d/.git/hooks/commit-msg"
 echo x >> "$d/README.md"; commit_in "$d" "[BUGFIX] Change readme"
 expect_preflight missing-hook hook-missing "$d"
 
+# 4a. linked worktree: git runs the hooks of the main checkout, so they count as installed
+d=$(make_checkout); wt="$(dirname "$d")/worktree"
+git -C "$d" worktree add -q -b change-wt "$wt" origin/main 2>/dev/null
+mkdir -p "$wt/typo3/sysext/backend/Classes"
+printf '%s\n' "$php_file_ok" > "$wt/typo3/sysext/backend/Classes/Foo.php"
+commit_in "$wt" "[BUGFIX] Add foo"
+expect_preflight worktree-hook ok "$wt"
+
 # 5. missing Change-Id (hook bypassed)
 d=$(make_checkout)
 echo x >> "$d/README.md"; git -C "$d" add -A
