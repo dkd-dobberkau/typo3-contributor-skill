@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.5.0] - 2026-10-01
 
 ### Added
 - `gerrit.py forge <issue> --full`: description, priority and custom fields (e.g. Complexity, TYPO3 Version), relations and comments of a Forge issue, read anonymously from the public JSON API.
@@ -42,6 +42,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Scripts: `check-setup.sh`, `qa.sh`, `check-commit-msg.sh`, `preflight.sh`, `fix-trailer-order.sh`, `gerrit.py`.
 - Tests: plain-bash and Python tests with anonymized Gerrit/Forge fixtures; documented baselines (`tests/baselines.md`); tests run in a throwaway directory.
 
+[0.5.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.0
 [0.4.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.4.0
 [0.3.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.3.0
 [0.2.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.2.0

@@ -2,7 +2,7 @@
   "name": "typo3-contributor",
   "displayName": "TYPO3 Contributor",
   "description": "Contribute to TYPO3 Core with an AI agent under human supervision: setup checks, QA, pre-push gate and read-only Gerrit/Forge tooling.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": {
     "name": "Olivier Dobberkau",
     "url": "https://github.com/dkd-dobberkau"
