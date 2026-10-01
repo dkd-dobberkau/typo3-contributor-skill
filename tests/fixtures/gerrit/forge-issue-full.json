@@ -1,0 +1,28 @@
+{
+ "issue": {
+  "id": 108272,
+  "project": {"id": 27, "name": "TYPO3 Core"},
+  "tracker": {"id": 1, "name": "Bug"},
+  "status": {"id": 4, "name": "Needs Feedback", "is_closed": false},
+  "priority": {"id": 4, "name": "Should have"},
+  "author": {"id": 1, "name": "Reporter"},
+  "subject": "Changing the case of folder names does not work",
+  "description": "h2. Steps to reproduce\r\n\r\nRename a folder from \"name\" to \"NAME\".\r\n\r\nh2. Current behaviour\r\n\r\nAfter rename: \"name\"",
+  "custom_fields": [
+   {"id": 4, "name": "TYPO3 Version", "value": "13"},
+   {"id": 5, "name": "PHP Version", "value": ""},
+   {"id": 8, "name": "Complexity", "value": "easy"},
+   {"id": 15, "name": "Is Regression", "value": ""}
+  ],
+  "created_on": "2025-11-23T10:53:31Z",
+  "relations": [
+   {"id": 1, "issue_id": 108272, "issue_to_id": 100001, "relation_type": "relates", "delay": null},
+   {"id": 2, "issue_id": 100002, "issue_to_id": 108272, "relation_type": "duplicates", "delay": null}
+  ],
+  "journals": [
+   {"id": 10, "user": {"id": 2, "name": "Core Member"}, "notes": "What's your server's OS?", "created_on": "2025-11-23T11:10:11Z", "details": [{"property": "attr", "name": "status_id", "old_value": "1", "new_value": "4"}]},
+   {"id": 11, "user": {"id": 2, "name": "Core Member"}, "notes": "", "created_on": "2025-11-23T11:20:00Z", "details": [{"property": "attr", "name": "assigned_to_id"}]},
+   {"id": 12, "user": {"id": 1, "name": "Reporter"}, "notes": "Case-sensitive everywhere. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "created_on": "2025-11-23T11:22:59Z", "details": []}
+  ]
+ }
+}

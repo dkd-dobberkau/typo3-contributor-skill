@@ -30,7 +30,7 @@ The human reviews every diff, decides every push, and posts all comments, votes 
 | `scripts/check-commit-msg.sh [file]` | lint a commit message (stricter than the Core hook, which does not block) |
 | `scripts/preflight.sh` | pre-push gate |
 | `scripts/fix-trailer-order.sh` | move Change-Id last after `git commit --amend -s` |
-| `scripts/gerrit.py status\|comments\|ci\|fetch\|files\|diff <change>`, `forge <issue>`, `branches` | read-only Gerrit / Core CI / Forge state |
+| `scripts/gerrit.py status\|comments\|ci\|fetch\|files\|diff <change>`, `forge <issue> [--full]`, `branches` | read-only Gerrit / Core CI / Forge state |
 
 ## Install
 
