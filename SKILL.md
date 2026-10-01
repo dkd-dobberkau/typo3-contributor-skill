@@ -5,6 +5,8 @@ description: Use when contributing to TYPO3 Core (typo3/typo3, review.typo3.org 
 
 # TYPO3 Core Contribution
 
+Skill directory: `${CLAUDE_SKILL_DIR}`. All `scripts/`, `references/` and `templates/` paths here and in the references (also written as `<skill>/…`) are relative to it. Commands run inside the Core checkout, so call scripts with that absolute prefix, e.g. `bash ${CLAUDE_SKILL_DIR}/scripts/qa.sh`.
+
 ## Overview
 
 Guides Core contributions along the official
@@ -70,7 +72,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | `python3 scripts/gerrit.py forge <issue>` | does the Forge issue exist, which tracker and status |
 | `python3 scripts/gerrit.py branches` | main + maintained LTS branches |
 
-Script paths are relative to this skill's directory.
+Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).
 
 ## The human review gate (before every push)
 

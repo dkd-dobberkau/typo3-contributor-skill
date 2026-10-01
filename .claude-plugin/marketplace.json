@@ -1,0 +1,8 @@
+{
+  "name": "typo3-contributor",
+  "owner": { "name": "Olivier Dobberkau", "url": "https://github.com/dkd-dobberkau" },
+  "description": "TYPO3 Core contribution tooling for Claude Code",
+  "plugins": [
+    { "name": "typo3-contributor", "source": "./" }
+  ]
+}

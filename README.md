@@ -31,10 +31,25 @@ The human reviews every diff, decides every push, and posts all comments, votes 
 
 ## Install
 
+### As a Claude Code plugin (recommended)
+
+```bash
+claude plugin marketplace add dkd-dobberkau/typo3-contributor-skill
+claude plugin install typo3-contributor@typo3-contributor
+```
+
+Inside a session: `/plugin marketplace add dkd-dobberkau/typo3-contributor-skill`, then
+`/plugin install typo3-contributor@typo3-contributor`. The skill appears as
+`typo3-contributor:typo3-contributor`. Update with `claude plugin marketplace update typo3-contributor`.
+
+### As a personal skill (symlink)
+
 ```bash
 git clone https://github.com/dkd-dobberkau/typo3-contributor-skill.git
 ln -s "$PWD/typo3-contributor-skill" ~/.claude/skills/typo3-contributor
 ```
+
+Use one of the two ways, not both, or the skill is listed twice.
 
 Requirements: git, bash, python3, Docker (for `runTests.sh -b docker`), a typo3.org account with an SSH key in Gerrit.
 
