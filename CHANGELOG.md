@@ -3,10 +3,13 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.6.0] - 2026-10-02
 
 ### Added
 - `gerrit.py mine`: dashboard of the ssh user, read anonymously from Gerrit. Lists all own open changes with patch set, Core CI state, votes, unresolved comments, relation chain parent and whether the change is in the user's attention set, plus the next step; changes the user reviews; changes merged in the last 7 days. SKILL.md routes "where do my changes stand" to it.
+
+### Fixed
+- Hard rule "no vote without a review": the agent no longer hands out a ready vote command for a change nobody has read or tested, but offers to prepare the review or recommends skipping. Without it, the `vote-via-ssh` eval failed in about one of two runs; with it, 4 of 4 runs pass unanimously.
 
 ## [0.5.3] - 2026-10-02
 
@@ -68,6 +71,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Scripts: `check-setup.sh`, `qa.sh`, `check-commit-msg.sh`, `preflight.sh`, `fix-trailer-order.sh`, `gerrit.py`.
 - Tests: plain-bash and Python tests with anonymized Gerrit/Forge fixtures; documented baselines (`tests/baselines.md`); tests run in a throwaway directory.
 
+[0.6.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.6.0
 [0.5.3]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.3
 [0.5.2]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.2
 [0.5.1]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.1
