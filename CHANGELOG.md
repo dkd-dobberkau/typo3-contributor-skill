@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Troubleshooting: why Gerrit shows "Merge Conflict" on a change in a deliberate relation chain (`CHERRY_PICK` submit type) and how to confirm it is harmless.
 
 ### Fixed
+- Guard hook: a push chained after a HEAD-changing git command (`checkout`, `switch`, `commit`, `reset`, `rebase`, …) in the same call is denied. `preflight.sh` runs before the call, so it checked the old HEAD: it blocked a valid push and could have let an invalid one through.
 - The pre-commit hook does not block a commit: with an old host PHP it prints a fatal error and false CGL errors, the commit is still created (SKILL.md, README).
 
 ## [0.5.2] - 2026-10-01

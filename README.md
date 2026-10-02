@@ -84,6 +84,7 @@ As a personal skill, set `TYPO3_CONTRIB_RUNTIME` / `TYPO3_CORE_DIR` in your shel
 
 The plugin ships a `PreToolUse` hook that turns the skill's rules into hard checks for the agent:
 - a push to `review.typo3.org` is denied unless `preflight.sh` passes, and otherwise needs your confirmation;
+- a push chained after a command that changes HEAD (`git checkout … && git push …`) is denied, since `preflight.sh` runs before the whole command;
 - `gerrit review`/`abandon`/`submit` and Gerrit REST writes are always denied;
 - `Co-Authored-By` in commits inside the Core checkout is denied.
 

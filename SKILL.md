@@ -80,6 +80,7 @@ Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).
 
 Installed as a plugin, a `PreToolUse` hook (`hooks/guard.py`) enforces the hard rules:
 - a push to Gerrit runs `preflight.sh` first and is denied if it fails; otherwise the human is asked to confirm;
+- a push in the same call as `git checkout`/`switch`/`commit`/`reset`/`rebase`/… is denied, because `preflight.sh` would check the old HEAD: change HEAD in one call, push in the next;
 - posting to Gerrit is always denied;
 - `Co-Authored-By` in a Core commit is denied.
 

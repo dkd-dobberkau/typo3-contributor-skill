@@ -30,6 +30,11 @@ printf '%s\n' "$php_file_ok" > "$core/typo3/sysext/backend/Classes/Foo.php"
 commit_in "$core" "[BUGFIX] Add foo"
 expect_guard push-ok ask "$core" "git push origin HEAD:refs/for/main" "review gate"
 expect_guard push-cd-form ask "$other" "cd $core && git push origin HEAD:refs/for/main" "review gate"
+# preflight runs before the command: a HEAD change in the same command would be checked against the old HEAD
+expect_guard push-after-checkout deny "$other" "cd $core && git checkout -q main && git push origin HEAD:refs/for/main" "separate"
+expect_guard push-after-amend deny "$core" "git commit -a --amend --no-edit && git push origin HEAD:refs/for/main" "separate"
+expect_guard push-after-switch-dash-c deny "$core" "git -C $core switch main; git push origin HEAD:refs/for/main" "separate"
+expect_guard push-after-status ask "$core" "git status --short && git push origin HEAD:refs/for/main" "review gate"
 # pushes elsewhere are not touched
 expect_guard push-other-repo none "$other" "git push origin main"
 # posting to Gerrit is never allowed

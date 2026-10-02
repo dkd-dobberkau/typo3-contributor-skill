@@ -23,6 +23,8 @@ GERRIT_WRITE = re.compile(r"\bgerrit\s+(review|abandon|restore|submit|set-review
 REST_WRITE = re.compile(r"(-X\s*(POST|PUT|DELETE)\b|--request\s+(POST|PUT|DELETE)\b|\s(-d|--data\S*)\s)")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b")
 COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b")
+# git commands that change HEAD or the working tree; preflight.sh runs before the whole command
+HEAD_CHANGE = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?(checkout|switch|reset|rebase|commit|cherry-pick|merge|pull|am|revert|stash)\b")
 CD_PREFIX = re.compile(r"^\s*cd\s+(\S+)\s*&&")
 
 
@@ -73,6 +75,10 @@ def check(cwd, command):
                                 "tooling). Disclose AI help in the Gerrit comment instead (templates/gerrit-disclosure.md).")
 
     if is_push and (core or GERRIT_HOST in command):
+        if HEAD_CHANGE.search(command[:is_push.start()]):
+            return decision("deny", "The push follows a git command that changes HEAD or the working tree in the "
+                                    "same call, but preflight.sh runs before the call and would check the old HEAD. "
+                                    "Run that command first, then push in a separate call.")
         try:
             result = subprocess.run(["bash", os.path.join(SCRIPTS, "preflight.sh")], cwd=directory,
                                     capture_output=True, text=True, timeout=120)
