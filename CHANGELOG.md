@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.5.3] - 2026-10-02
 
 ### Added
 - README links the upstream pull requests that fix the outdated guide passages.
@@ -63,6 +63,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Scripts: `check-setup.sh`, `qa.sh`, `check-commit-msg.sh`, `preflight.sh`, `fix-trailer-order.sh`, `gerrit.py`.
 - Tests: plain-bash and Python tests with anonymized Gerrit/Forge fixtures; documented baselines (`tests/baselines.md`); tests run in a throwaway directory.
 
+[0.5.3]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.3
 [0.5.2]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.2
 [0.5.1]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.1
 [0.5.0]: https://github.com/dkd-dobberkau/typo3-contributor-skill/releases/tag/v0.5.0
