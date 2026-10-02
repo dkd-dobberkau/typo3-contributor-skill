@@ -217,5 +217,51 @@ class ChainTest(unittest.TestCase):
         self.assertIn("MERGED", gerrit.chain_problem(self.CURRENT, changes))
 
 
+class MineTest(unittest.TestCase):
+    """gerrit.py mine: the dashboard of the ssh user's changes, with the next step per change."""
+
+    def rows(self, changes=None, attention=(96215, 96260)):
+        changes = changes if changes is not None else load("mine-open.json")
+        return {row["number"]: row for row in gerrit.summarize_mine(changes, set(attention))}
+
+    def test_lists_every_open_change_with_patch_set_and_ci(self):
+        rows = self.rows()
+        self.assertEqual(sorted(rows), [96215, 96216, 96260, 96264, 96281])
+        self.assertEqual(rows[96215]["patchset"], 4)
+        self.assertEqual(rows[96215]["ci"], "green")
+
+    def test_votes_leave_out_core_ci(self):
+        self.assertEqual(self.rows()[96215]["votes"], "CR user-b +1 · V user-b +1")
+        self.assertEqual(self.rows()[96216]["votes"], "")
+
+    def test_attention_set_means_your_turn(self):
+        rows = self.rows()
+        self.assertTrue(rows[96215]["your_turn"])
+        self.assertFalse(rows[96216]["your_turn"])
+        self.assertEqual(rows[96215]["next"], "your turn: gerrit.py comments 96215 --all")
+
+    def test_relation_chain_is_detected(self):
+        rows = self.rows()
+        self.assertEqual(rows[96216]["on"], 96215)
+        self.assertIsNone(rows[96215]["on"])
+
+    def test_red_ci_points_to_the_failed_jobs(self):
+        changes = load("mine-open.json")
+        change = next(c for c in changes if c["_number"] == 96281)
+        change["messages"][-1]["message"] = change["messages"][-1]["message"].replace("is happy", "is not happy")
+        row = self.rows(changes, attention=())[96281]
+        self.assertEqual(row["ci"], "RED")
+        self.assertEqual(row["next"], "fix CI: gerrit.py ci 96281")
+
+    def test_ci_of_an_older_patch_set_counts_as_running(self):
+        changes = load("mine-open.json")
+        change = next(c for c in changes if c["_number"] == 96264)
+        for message in change["messages"]:
+            message["_revision_number"] = 1
+        row = self.rows(changes, attention=())[96264]
+        self.assertEqual(row["ci"], "running")
+        self.assertEqual(row["next"], "wait for Core CI")
+
+
 if __name__ == "__main__":
     unittest.main()

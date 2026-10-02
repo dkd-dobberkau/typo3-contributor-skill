@@ -1,0 +1,316 @@
+)]}'
+[
+ {
+  "_number": 96215,
+  "subject": "[TASK] Extract the extension scanner into a service",
+  "status": "NEW",
+  "branch": "main",
+  "owner": {
+   "_account_id": 1000,
+   "username": "user-a"
+  },
+  "attention_set": {
+   "1000": {
+    "reason": "someone replied on the change"
+   },
+   "2000": {
+    "reason": "someone replied on the change"
+   }
+  },
+  "unresolved_comment_count": 1,
+  "current_revision": "63aa62a2f108160ff969cc75d9cbe0c627644519",
+  "revisions": {
+   "63aa62a2f108160ff969cc75d9cbe0c627644519": {
+    "_number": 4,
+    "commit": {
+     "parents": [
+      {
+       "commit": "9e2685e77d85adf208790791704f728c92c605db"
+      }
+     ]
+    }
+   }
+  },
+  "labels": {
+   "Verified": {
+    "all": [
+     {
+      "username": "core-ci",
+      "value": 1
+     },
+     {
+      "username": "user-b",
+      "value": 1
+     }
+    ]
+   },
+   "Code-Review": {
+    "all": [
+     {
+      "username": "user-b",
+      "value": 1
+     }
+    ]
+   }
+  },
+  "messages": [
+   {
+    "_revision_number": 1,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 1: Verified-1\n\nCore CI is not happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109619"
+   },
+   {
+    "_revision_number": 2,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 2: Verified-1\n\nCore CI is not happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109665"
+   },
+   {
+    "_revision_number": 3,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 3: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109842"
+   },
+   {
+    "_revision_number": 4,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 4: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109886"
+   }
+  ]
+ },
+ {
+  "_number": 96216,
+  "subject": "[FEATURE] Add upgrade:scan console command for the extension scanner",
+  "status": "NEW",
+  "branch": "main",
+  "owner": {
+   "_account_id": 1000,
+   "username": "user-a"
+  },
+  "attention_set": {},
+  "unresolved_comment_count": 1,
+  "current_revision": "5a53a549a0137ce97504796d3da8c6d111cb5fff",
+  "revisions": {
+   "5a53a549a0137ce97504796d3da8c6d111cb5fff": {
+    "_number": 4,
+    "commit": {
+     "parents": [
+      {
+       "commit": "63aa62a2f108160ff969cc75d9cbe0c627644519"
+      }
+     ]
+    }
+   }
+  },
+  "labels": {
+   "Verified": {
+    "all": [
+     {
+      "username": "core-ci",
+      "value": 1
+     }
+    ]
+   },
+   "Code-Review": {
+    "all": []
+   }
+  },
+  "messages": [
+   {
+    "_revision_number": 1,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 1: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109620"
+   },
+   {
+    "_revision_number": 2,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 2: Verified-1\n\nCore CI is not happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109666"
+   },
+   {
+    "_revision_number": 3,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 3: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109847"
+   },
+   {
+    "_revision_number": 4,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 4: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109887"
+   }
+  ]
+ },
+ {
+  "_number": 96281,
+  "subject": "[BUGFIX] Respect abort override in pre-commit hook",
+  "status": "NEW",
+  "branch": "main",
+  "owner": {
+   "_account_id": 1000,
+   "username": "user-a"
+  },
+  "attention_set": {},
+  "unresolved_comment_count": 1,
+  "current_revision": "25488b87e53858ebb6932f6461fcfdf11ddb6ba2",
+  "revisions": {
+   "25488b87e53858ebb6932f6461fcfdf11ddb6ba2": {
+    "_number": 1,
+    "commit": {
+     "parents": [
+      {
+       "commit": "9e2685e77d85adf208790791704f728c92c605db"
+      }
+     ]
+    }
+   }
+  },
+  "labels": {
+   "Verified": {
+    "all": [
+     {
+      "username": "core-ci",
+      "value": 1
+     }
+    ]
+   },
+   "Code-Review": {
+    "all": []
+   }
+  },
+  "messages": [
+   {
+    "_revision_number": 1,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 1: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109851"
+   }
+  ]
+ },
+ {
+  "_number": 96264,
+  "subject": "[BUGFIX] Show login in EM toggle on expired session",
+  "status": "NEW",
+  "branch": "main",
+  "owner": {
+   "_account_id": 1000,
+   "username": "user-a"
+  },
+  "attention_set": {},
+  "unresolved_comment_count": 2,
+  "current_revision": "90faf64c99b2523b1ab1dd2fa62d6f6aa1926f8b",
+  "revisions": {
+   "90faf64c99b2523b1ab1dd2fa62d6f6aa1926f8b": {
+    "_number": 2,
+    "commit": {
+     "parents": [
+      {
+       "commit": "9e2685e77d85adf208790791704f728c92c605db"
+      }
+     ]
+    }
+   }
+  },
+  "labels": {
+   "Verified": {
+    "all": [
+     {
+      "username": "core-ci",
+      "value": 1
+     }
+    ]
+   },
+   "Code-Review": {
+    "all": []
+   }
+  },
+  "messages": [
+   {
+    "_revision_number": 1,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 1: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109817"
+   },
+   {
+    "_revision_number": 2,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 2: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109848"
+   }
+  ]
+ },
+ {
+  "_number": 96260,
+  "subject": "[TASK] Correct commit-msg hook notes in AGENTS.md",
+  "status": "NEW",
+  "branch": "main",
+  "owner": {
+   "_account_id": 1000,
+   "username": "user-a"
+  },
+  "attention_set": {
+   "1000": {
+    "reason": "someone replied on the change"
+   }
+  },
+  "unresolved_comment_count": 1,
+  "current_revision": "50c629981156b35cab567992d5eeea277ee6ad15",
+  "revisions": {
+   "50c629981156b35cab567992d5eeea277ee6ad15": {
+    "_number": 1,
+    "commit": {
+     "parents": [
+      {
+       "commit": "bbaf7003b636be0a48aa447afe080908208facd1"
+      }
+     ]
+    }
+   }
+  },
+  "labels": {
+   "Verified": {
+    "all": [
+     {
+      "username": "user-c",
+      "value": 1
+     },
+     {
+      "username": "core-ci",
+      "value": 1
+     }
+    ]
+   },
+   "Code-Review": {
+    "all": [
+     {
+      "username": "user-c",
+      "value": 1
+     }
+    ]
+   }
+  },
+  "messages": [
+   {
+    "_revision_number": 1,
+    "author": {
+     "username": "core-ci"
+    },
+    "message": "Patch Set 1: Verified+1\n\nCore CI is happy: https://git.typo3.org/typo3/CI/cms/-/pipelines/109809"
+   }
+  ]
+ }
+]

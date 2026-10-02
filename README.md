@@ -42,6 +42,7 @@ Questions? See the [FAQ](docs/FAQ.md).
 | `scripts/preflight.sh` | pre-push gate |
 | `scripts/fix-trailer-order.sh` | move Change-Id last after `git commit --amend -s` |
 | `scripts/gerrit.py status\|comments\|ci\|fetch\|files\|diff <change>`, `forge <issue> [--full]`, `branches`, `chain <sha>…` | read-only Gerrit / Core CI / Forge state |
+| `scripts/gerrit.py mine` | your dashboard: open changes with CI, votes, unresolved threads, relation chain and whose turn it is; reviews; recently merged |
 
 ## Install
 

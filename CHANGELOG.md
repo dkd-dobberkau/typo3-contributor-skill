@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- `gerrit.py mine`: dashboard of the ssh user, read anonymously from Gerrit. Lists all own open changes with patch set, Core CI state, votes, unresolved comments, relation chain parent and whether the change is in the user's attention set, plus the next step; changes the user reviews; changes merged in the last 7 days. SKILL.md routes "where do my changes stand" to it.
+
 ## [0.5.3] - 2026-10-02
 
 ### Added

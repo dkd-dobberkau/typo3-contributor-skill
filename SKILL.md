@@ -58,6 +58,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | Error messages from git/Gerrit | `references/troubleshooting.md` |
 | `command -v git-ai` succeeds | `references/git-ai.md` |
 | Human unavailable (weekend, meeting) | `references/patch.md` → "Handover" |
+| "Where do my changes stand?", resuming work | `gerrit.py mine` first (all own open changes, attention set, next step), then `status`/`comments` for the changes it flags |
 
 ## Scripts (run inside the checkout; `bash`/`python3`, read-only towards servers)
 
@@ -72,6 +73,7 @@ all comments and votes and creates Forge tickets; you draft them.
 | `python3 scripts/gerrit.py files\|diff <change>` | read a change without touching the checkout |
 | `python3 scripts/gerrit.py forge <issue> [--full]` | does the Forge issue exist, which tracker and status; `--full` adds description, fields, relations and comments (read before working on an issue) |
 | `python3 scripts/gerrit.py branches` | main + maintained LTS branches |
+| `python3 scripts/gerrit.py mine` | dashboard of the ssh user: open changes (CI, votes, unresolved, chain, whose turn), reviews, recently merged |
 | `python3 scripts/gerrit.py chain <sha>…` | are these commits the current patch sets of open changes (used by `preflight.sh` for a relation chain) |
 
 Prefix every script with `${CLAUDE_SKILL_DIR}/` (the skill directory, see top).

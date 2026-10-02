@@ -13,6 +13,8 @@ Usage:
   gerrit.py forge <issue> [--full]   Forge issue tracker/status/subject (does the number exist and fit?)
                                      --full: also description, fields, relations and comments
   gerrit.py branches                 branches a bugfix may target (main + maintained LTS, get.typo3.org)
+  gerrit.py mine                     dashboard of the ssh user (~/.ssh/config): open changes with CI,
+                                     votes, attention set and next step; reviews; merged last 7 days
   gerrit.py chain <sha>...           are these commits the current patch sets of open changes? (used by
                                      preflight.sh for a deliberate relation chain; exit 1 if not)
 """
@@ -20,6 +22,7 @@ import datetime
 import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 
 GERRIT = "https://review.typo3.org"
@@ -305,6 +308,88 @@ def command_chain(shas):
     return 1 if problems else 0
 
 
+LABEL_SHORT = {"Code-Review": "CR", "Verified": "V"}
+
+
+def summarize_mine(changes, attention):
+    """One row per open change of the user: state, votes and the next step.
+
+    `changes` is the result of owner:<user> status:open, `attention` the change numbers of
+    attention:<user>. Core CI's own Verified vote is shown as "ci", not among the votes.
+    """
+    current = {change["current_revision"]: change["_number"] for change in changes}
+    rows = []
+    for change in changes:
+        revision = change["revisions"][change["current_revision"]]
+        ci = latest_ci(change.get("messages", []))
+        if ci is None or ci["patchset"] != revision["_number"]:
+            ci_state = "running"
+        else:
+            ci_state = "green" if ci["happy"] else "RED"
+        votes = []
+        for label in ("Code-Review", "Verified"):
+            for vote in change.get("labels", {}).get(label, {}).get("all", []):
+                if vote.get("value") and vote.get("username") != "core-ci":
+                    votes.append(f"{LABEL_SHORT[label]} {vote['username']} {vote['value']:+d}")
+        number = change["_number"]
+        your_turn = number in attention
+        if ci_state == "RED":
+            next_step = f"fix CI: gerrit.py ci {number}"
+        elif your_turn:
+            next_step = f"your turn: gerrit.py comments {number} --all"
+        elif ci_state == "running":
+            next_step = "wait for Core CI"
+        else:
+            next_step = "wait for reviews"
+        parents = revision.get("commit", {}).get("parents", [])
+        rows.append({
+            "number": number,
+            "subject": change["subject"],
+            "patchset": revision["_number"],
+            "ci": ci_state,
+            "votes": " · ".join(votes),
+            "unresolved": change.get("unresolved_comment_count", 0),
+            "your_turn": your_turn,
+            "on": current.get(parents[0]["commit"]) if parents else None,
+            "next": next_step,
+        })
+    return rows
+
+
+def command_mine(days=7):
+    user = ssh_user()
+    if not user:
+        print("No user in the 'Host review.typo3.org' block of ~/.ssh/config; cannot tell which changes are yours.")
+        return 2
+
+    def query(q, options=""):
+        return parse_gerrit_json(get(f"{GERRIT}/changes/?q={urllib.parse.quote(q)}&n=50{options}"))
+
+    detail = "&o=LABELS&o=DETAILED_ACCOUNTS&o=CURRENT_REVISION&o=CURRENT_COMMIT&o=MESSAGES"
+    rows = summarize_mine(query(f"owner:{user} status:open", detail),
+                          {change["_number"] for change in query(f"attention:{user}")})
+    print(f"Open changes of {user} ({len(rows)}):")
+    for row in sorted(rows, key=lambda row: (not row["your_turn"], row["number"])):
+        facts = [f"PS{row['patchset']}", f"CI {row['ci']}"]
+        if row["votes"]:
+            facts.append(row["votes"])
+        if row["unresolved"]:
+            facts.append(f"{row['unresolved']} unresolved")
+        if row["on"]:
+            facts.append(f"on {row['on']}")
+        print(f"  {row['number']} {row['subject']}")
+        print(f"        {' · '.join(facts)}  → {row['next']}")
+    reviewing = query(f"reviewer:{user} -owner:{user} status:open")
+    print(f"Reviewing changes of others ({len(reviewing)}):")
+    for change in reviewing:
+        print(f"  {change['_number']} {change['subject']}  → gerrit.py status {change['_number']}")
+    merged = query(f"owner:{user} status:merged -age:{days}d")
+    print(f"Merged in the last {days} days ({len(merged)}):")
+    for change in merged:
+        print(f"  {change['_number']} {change['subject']}  → if a change of yours was based on it: rebase onto origin/main")
+    return 0
+
+
 def fetch_comments(change):
     return parse_gerrit_json(get(f"{GERRIT}/changes/{change}/comments"))
 
@@ -393,6 +478,8 @@ def main(argv):
         print(", ".join(supported_branches(majors, datetime.date.today().isoformat())))
         print("Bugfixes land on main first; which LTS branches get a backport is the mergers' and the human's call.")
         return 0
+    if len(argv) == 2 and argv[1] == "mine":
+        return command_mine()
     if len(argv) >= 3 and argv[1] == "chain" and all(re.fullmatch(r"[0-9a-f]{40}", sha) for sha in argv[2:]):
         return command_chain(argv[2:])
     if len(argv) not in (3, 4) or argv[1] not in ("status", "comments", "ci", "fetch", "files", "diff", "forge") or not argv[2].isdigit():
