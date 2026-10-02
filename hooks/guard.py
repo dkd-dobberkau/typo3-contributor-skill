@@ -74,7 +74,9 @@ def check(cwd, command):
         return decision("deny", "No Co-Authored-By in TYPO3 Core commits (Core AGENTS.md: do not credit "
                                 "tooling). Disclose AI help in the Gerrit comment instead (templates/gerrit-disclosure.md).")
 
-    if is_push and (core or GERRIT_HOST in command):
+    # Outside the Core checkout, only an explicit push to Gerrit counts; text that merely mentions
+    # a push and the host (an echo, a heredoc, a commit message) must not trigger preflight.sh.
+    if is_push and (core or (GERRIT_HOST in command and "refs/for/" in command)):
         if HEAD_CHANGE.search(command[:is_push.start()]):
             return decision("deny", "The push follows a git command that changes HEAD or the working tree in the "
                                     "same call, but preflight.sh runs before the call and would check the old HEAD. "

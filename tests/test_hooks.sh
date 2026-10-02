@@ -37,6 +37,10 @@ expect_guard push-after-switch-dash-c deny "$core" "git -C $core switch main; gi
 expect_guard push-after-status ask "$core" "git status --short && git push origin HEAD:refs/for/main" "review gate"
 # pushes elsewhere are not touched
 expect_guard push-other-repo none "$other" "git push origin main"
+# text that only mentions a push to Gerrit (heredoc, echo, commit message) outside the Core checkout
+expect_guard push-mentioned-in-text none "$other" "echo 'run git push origin HEAD to review.typo3.org later' > notes.txt"
+# an explicit push to Gerrit from elsewhere is still checked (nothing ahead there -> preflight fails)
+expect_guard push-explicit-gerrit-url deny "$other" "git push ssh://jane-doe@review.typo3.org:29418/Packages/TYPO3.CMS.git HEAD:refs/for/main" "PREFLIGHT"
 # posting to Gerrit is never allowed
 expect_guard gerrit-review deny "$other" "ssh -p 29418 jane-doe@review.typo3.org gerrit review 96241,1 --code-review +1" "human posts"
 expect_guard gerrit-alias deny "$other" "ssh review.typo3.org gerrit review --verified +1 96241,1"

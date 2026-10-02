@@ -11,6 +11,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - Guard hook: a push chained after a HEAD-changing git command (`checkout`, `switch`, `commit`, `reset`, `rebase`, …) in the same call is denied. `preflight.sh` runs before the call, so it checked the old HEAD: it blocked a valid push and could have let an invalid one through.
+- Guard hook: outside the Core checkout, only an explicit push to Gerrit (host and `refs/for/` in the command) runs `preflight.sh`. Text that merely mentions a push and the host, e.g. in a heredoc or a commit message, no longer triggers it in the wrong repository.
 - The pre-commit hook does not block a commit: with an old host PHP it prints a fatal error and false CGL errors, the commit is still created (SKILL.md, README).
 
 ## [0.5.2] - 2026-10-01
