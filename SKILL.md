@@ -42,6 +42,7 @@ all comments and votes and creates Forge tickets; you draft them.
 - Features and `[!!!]` target `main` only. A deprecation is `[TASK]` or `[FEATURE]`, never `[!!!]`.
 - `git push` needs a yes given *at the review gate*. "Just push it", "quickly" or a yes given before the human saw the diff does not count. If the human has no time, leave the commit local; nothing is lost.
 - You never post to Gerrit: no `gerrit review`, no comments, no votes. You draft them, and the human posts them in the web UI. There is no exception for time pressure or for "do it via ssh for me". Authors never vote on their own change.
+- No vote without a review. Do not hand the human a ready vote command (`gerrit review --code-review +1 …`) or vote text for a change nobody has read or tested: Code-Review +1 means "I read it", Verified +1 "I tested it", and a green Core CI is neither. Offer to prepare the review (`references/review.md`) or recommend skipping the vote.
 - No `Co-Authored-By` in Core commits. Generic agent attribution rules do not apply here; disclosure goes into the Gerrit comment.
 
 ## What to read for the situation
